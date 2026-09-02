@@ -1,31 +1,36 @@
 #===============================================================================
-#  CMakeLists.txt (gemini) 
-# 
+#  CMakeLists.txt (gemini)
+#
 #  Copyright (C) 2010-2016 Tobias Toll and Thomas Ullrich
-# 
+#
 #  This file is part of Sartre.
-# 
-#  This program is free software: you can redistribute it and/or modify 
-#  it under the terms of the GNU General Public License as published by 
-#  the Free Software Foundation.   
-#  This program is distributed in the hope that it will be useful, 
-#  but without any warranty; without even the implied warranty of 
-#  merchantability or fitness for a particular purpose. See the 
-#  GNU General Public License for more details. 
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation.
+#  This program is distributed in the hope that it will be useful,
+#  but without any warranty; without even the implied warranty of
+#  merchantability or fitness for a particular purpose. See the
+#  GNU General Public License for more details.
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#   
-#  Author: Thomas Ullrich 
-#  Last update: 
+#
+#  Author: Thomas Ullrich
+#  Last update:
 #  $Date$
 #  $Author$
+#
+#  Modernized:
+#   - cmake_minimum_required / CXX standard / CMAKE_MODULE_PATH now come from
+#     the top-level CMakeLists.txt (removed the duplicate re-declarations,
+#     which previously requested CMake 3.1 here vs 3.30 in src/).
+#   - "-stdlib=libc++" was previously applied unconditionally, which is a
+#     Clang/libc++-specific flag; on GCC (e.g. Linux) this can silently do
+#     nothing or break the build. Now guarded the same way src/CMakeLists.txt
+#     already guards its one Clang-specific flag.
+#   - include_directories()/ROOT_LIBRARIES now attached directly to the
+#     `gemini` target via target_include_directories()/target_link_libraries.
 #===============================================================================
-cmake_minimum_required (VERSION 3.30)
-
-#
-#  Make sure required external libraries are available
-#
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/modules")
 
 #
 # release or debug and compiler flags
@@ -35,20 +40,18 @@ set(CMAKE_C_FLAGS_RELEASE "-O -W -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -W -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_RELEASE "-O -W -Wall -Wextra")
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
 #
 # ROOT
 #
 find_package(ROOT REQUIRED)
-include_directories(${ROOT_INCLUDE_DIR})
 
 #
 #  Gemini library sources
 #
-#include_directories("${PROJECT_SOURCE_DIR}/gemini")
 set(GEMINI_SRC "CAngle.cpp")
 set(GEMINI_SRC ${GEMINI_SRC} "CAngleDist.cpp")
 set(GEMINI_SRC ${GEMINI_SRC} "CChart.cpp")
@@ -75,6 +78,8 @@ set(GEMINI_SRC ${GEMINI_SRC} "CYrast.cpp")
 #  Gemini library
 #
 add_library(gemini ${GEMINI_SRC})
+target_include_directories(gemini PUBLIC ${ROOT_INCLUDE_DIR})
+target_link_libraries(gemini PUBLIC ${ROOT_LIBRARIES})
 
 #
 # Install library

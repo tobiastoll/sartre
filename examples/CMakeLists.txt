@@ -1,25 +1,3 @@
-#===============================================================================
-#  CMakeLists.txt (src)
-#
-#  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
-#
-#  This file is part of Sartre.
-#
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation.
-#  This program is distributed in the hope that it will be useful,
-#  but without any warranty; without even the implied warranty of
-#  merchantability or fitness for a particular purpose. See the
-#  GNU General Public License for more details.
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-#  Author: Thomas Ullrich
-#  Last update:
-#  $Date: 2026-06-11 19:08:02 +0200 (Thu, 11 Jun 2026) $
-#  $Author: ullrich $
-#===============================================================================
 cmake_minimum_required(VERSION 3.30)
 project(SARTRE_EXAMPLES LANGUAGES CXX)
 
@@ -33,6 +11,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_compile_options(-Wall -Wextra -pedantic -Wno-long-long)
 
+# libc++ is required on macOS; skip on Linux (GCC doesn't support it).
+if(APPLE)
+  add_compile_options(-stdlib=libc++)
+  add_link_options(-stdlib=libc++)
+endif()
 
 # ------------------------------------------------------------------------------
 # Locate Sartre
@@ -58,17 +41,31 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 option(MULTITHREADED "Enable multithreaded mode" OFF)
 
+# Must match whatever ENABLE_INCLUSIVE_DIFFRACTION value was used to build
+# the linked libsartre.a. This is a separate CMake project consuming a
+# pre-built static library, so there is no way to auto-detect what the
+# library was actually compiled with — get this wrong and you'll either
+# needlessly require Pythia8, or fail to link the two Inclusive* mains
+# with "undefined reference to SartreInclusiveDiffraction::...".
+option(ENABLE_INCLUSIVE_DIFFRACTION
+       "Build inclusive-diffraction examples (requires Pythia8; libsartre.a must have been built with this ON too)" ON)
+
 # ------------------------------------------------------------------------------
 # External dependencies
 # ------------------------------------------------------------------------------
 
-find_package(Pythia8 8.3.0 REQUIRED)   # 8.3.0 added WeightsFragmentation and 3-arg readString
+# Only needed if libsartre.a was built with SartreInclusiveDiffraction /
+# InclusiveFinalStateGenerator (the only two translation units that
+# reference Pythia8 symbols).
+if(ENABLE_INCLUSIVE_DIFFRACTION)
+  find_package(Pythia8 8.3.0 REQUIRED)   # 8.3.0 added WeightsFragmentation and 3-arg readString
 
-# On macOS, FindPythia8.cmake prefers libpythia8.a so that -force_load works.
-if(APPLE)
-  set(PYTHIA8_LINK_FLAGS "-Wl,-force_load,${PYTHIA8_LIBRARIES}")
-else()
-  set(PYTHIA8_LINK_FLAGS "${PYTHIA8_LIBRARIES}")
+  # On macOS, FindPythia8.cmake prefers libpythia8.a so that -force_load works.
+  if(APPLE)
+    set(PYTHIA8_LINK_FLAGS "-Wl,-force_load,${PYTHIA8_LIBRARIES}")
+  else()
+    set(PYTHIA8_LINK_FLAGS "${PYTHIA8_LIBRARIES}")
+  endif()
 endif()
 
 # ------------------------------------------------------------------
@@ -91,6 +88,19 @@ find_package(GSL     REQUIRED)
 # The namespaced ROOT::Core / ROOT::Hist / ... targets from a modern
 # ROOTConfig.cmake are NOT available when using the custom module.
 find_package(ROOT REQUIRED)
+
+# Only needed if libsartre.a was built with MULTITHREADED=ON. That build
+# compiles Amplitudes.cpp's "#if defined(SARTRE_IN_MULTITHREADED_MODE)"
+# branch, which #includes <boost/thread.hpp> — leaving undefined
+# boost::thread symbols in Amplitudes.o that this link step must resolve,
+# the same static-archive symbol-resolution issue documented below for
+# Pythia8. Amplitudes.o is pulled into essentially every executable here
+# (it's core cross-section machinery), so this isn't limited to a couple
+# of targets the way the Pythia8 case is.
+if(MULTITHREADED)
+  set(Boost_USE_MULTITHREADED ON)
+  find_package(Boost COMPONENTS thread REQUIRED)
+endif()
 
 # ------------------------------------------------------------------------------
 # Sartre static libraries
@@ -146,17 +156,23 @@ target_include_directories(CommonDeps INTERFACE
   ${PYTHIA8_INCLUDE_DIR}
   ${GSL_INCLUDE_DIR}
   ${ROOT_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIR}
 )
 
 target_link_libraries(CommonDeps INTERFACE
-  # Sartre archives FIRST so their Pythia8 symbol requirements are in the
-  # undefined-symbol set when the linker reaches the Pythia8 library.
+  # Sartre archives FIRST so their Pythia8/Boost symbol requirements are in
+  # the undefined-symbol set when the linker reaches those libraries below.
   sartre_static
   gemini_static
   cuba_static
   # On macOS: -force_load ensures all Pythia8 archive members are loaded,
   # including those whose symbols have hidden visibility in the dylib.
+  # Empty (no-op) when ENABLE_INCLUSIVE_DIFFRACTION=OFF.
   ${PYTHIA8_LINK_FLAGS}
+  # Resolves boost::thread symbols left undefined in Amplitudes.o when
+  # libsartre.a was built with MULTITHREADED=ON — same static-archive
+  # ordering requirement as Pythia8 above. Empty when MULTITHREADED=OFF.
+  ${Boost_LIBRARIES}
   ${GSL_LIBRARIES}
   ${ROOT_LIBRARIES}
   ${ROOT_EG_LIBRARY}
@@ -191,11 +207,25 @@ set(EXECUTABLES
   tableGeneratorUPCMain
   lambdaGeneratorMain
   convergenceTest
-  fftValidationMain
-#  sartreInclusiveDiffractionMain
-#  tableGeneratorInclusiveDiffractionMain
-  large_tMain
+  dsigmadp2dy_tableGeneratorUPC
+  dsigmadp2dyPrint
+  InitialStateFitter_corr
 )
+
+# These call into SartreInclusiveDiffraction / InclusiveFinalStateGenerator
+# and will fail to link ("undefined reference to SartreInclusiveDiffraction::
+# ...") unless libsartre.a was itself built with ENABLE_INCLUSIVE_DIFFRACTION
+# =ON — see the option() above.
+if(ENABLE_INCLUSIVE_DIFFRACTION)
+  list(APPEND EXECUTABLES
+    sartreInclusiveDiffractionMain
+    tableGeneratorInclusiveDiffractionMain
+  )
+else()
+  message(STATUS "ENABLE_INCLUSIVE_DIFFRACTION=OFF — skipping "
+                  "sartreInclusiveDiffractionMain and "
+                  "tableGeneratorInclusiveDiffractionMain")
+endif()
 
 # Guard: skip any target whose source file is absent (avoids confusing errors
 # when the list above is extended before the corresponding .cpp is added).
