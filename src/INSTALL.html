@@ -1,0 +1,152 @@
+<!--
+ //==============================================================================
+ //  download_install.html
+ //
+ //  Copyright (C) 2010-2018 Tobias Toll and Thomas Ullrich 
+ //
+ //  This file is part of Sartre version: 1.1
+ //
+ //  This program is free software: you can redistribute it and/or modify 
+ //  it under the terms of the GNU General Public License as published by 
+ //  the Free Software Foundation.   
+ //  This program is distributed in the hope that it will be useful, 
+ //  but without any warranty; without even the implied warranty of 
+ //  merchantability or fitness for a particular purpose. See the 
+ //  GNU General Public License for more details. 
+ //  You should have received a copy of the GNU General Public License
+ //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //
+ //  Author: Thomas Ullrich
+ //  Last update: 
+ //  $Date: 2019-03-08 20:13:53 +0100 (Fri, 08 Mar 2019) $
+ //  $Author: ullrich $
+ //==============================================================================
+ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Sartre - Download &amp; Installation</title>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
+                <td width="10">&nbsp;&nbsp;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
+                <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot;<font color="#004faf"> <a href="usersGuide.html">Users
+                Guide</a></font>&nbsp;&middot; 
+            <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+        </table>
+        
+        <h1 class="title">Download</h1>
+    <p>The latest version of Sar<em>t</em>re  can be obtained from
+        the <a href="https://sartre.hepforge.org">project web site</a> (hepforge) via svn. The latest version is not always guaranteed to be stable. Safer is it to download one of the tar balls for tagged versions. The tar ball contains all necessary source
+         code, lookup tables, and the full documenation (html).</p>
+<h1 class="title">Building Sar<em>t</em>re</h1>
+    <h2>Supported platforms</h2>
+    <p>Although Sar<em>t</em>re is written in ISO C++ and we made sure to adhere
+        to strict standards in our code we can only guarantee that it runs on
+        the two platforms we tested it on, namely Mac OS and
+        Linux (Red Hat) systems. </p>
+    <h2>Unpacking the downloaded tar ball</h2>
+<pre class="code">
+tar -xzvf sartre-&lt;version&gt;.tgz
+</pre>
+<p>This will create a directory <code>sartre </code>with several
+    subdirectories containing source code, include files, tables, as well as
+    directories
+    for (provided) external programs such as Cuba and Gemini++ that are required
+    to build Sar<em>t</em>re.</p>
+<h2>Required additional packages</h2>
+       <p>Sar<em>t</em>re requires two additional packages to be installed: <a href="http://root.cern.ch">ROOT</a> and
+           the <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a> (GSL).
+           If not already on your system please install them before you continue.
+           
+Note that ROOT must contain  the <em>Unuran</em> and <em>MathMore</em> components.
+           The binary distributions available on the ROOT <a href="http://root.cern.ch">web
+           site</a> contain them
+           already. If you install ROOT yourself make sure you select them during
+           configuration. In case you want to generate tables for specific
+models and nuclei not already contained in the latest Sar<em>t</em>re distribution <strong>and</strong> you
+want to do so in multithreaded mode (see below) you will need the <a href="http://www.boost.org">Boost</a> library.
+For most users this is in general not needed nor recommended.
+    <p>Sar<em>t</em>re is using <a href="http://www.cmake.org">Cmake</a> for
+        building and installation. If this package is not present please <a href="http://www.cmake.org/cmake/resources/software.html">install</a> it before continuing.    
+    <h2>Building and  installing 
+        Sar<em>t</em>re
+    </h2>
+    <p>Cmake will lookup the locations of the required
+        libraries. If ROOT and GSL are not installed in standard locations it
+        is recommended to ensure that the following environment variables are
+        defined. This helps cmake
+        to locate the required libraries and include files:</p>
+    <pre class="code">
+# example using bash 
+export ROOTSYS=/usr/local/root         # must contain lib/ include/ bin/
+export GSL_DIR=/usr/local/bin          # must contain gsl-config
+# use only when creating tables in multithreaded mode: export Boost_Dir=...</pre>
+
+    <p>Now building and installing Sar<em>t</em>re is easy. We strongly recommend an out-of-source build.</p>
+    <pre class="code">
+cd sartre-&lt;version&gt;
+mkdir build
+cd build
+cmake ..               # note the dot-dot &quot;..&quot;
+make
+make install  </pre>
+    <p>By default Sar<em>t</em>re is installed in /usr/local. Make sure you have
+        the appropriate privileges for installation. To chose a different 
+        directory use:</p>
+    <pre class="code">cmake -DCMAKE_INSTALL_PREFIX=&lt;mydir&gt; ..
+</pre>
+<p> This
+    will create a Makefile that is setup to install
+    Sar<em>t</em>re
+    in <code>mydir/sartre</code>.
+<p>If (and only if) you intend to create your own tables, a tremendously CPU
+    intensive task, you might want to run Sar<em>t</em>re in multithreaded mode.
+    To do so you need to pass an additional flag to cmake:
+<pre class="code">cmake -DMULTITHREADED=ON .
+</pre>
+<h2>Getting started</h2>
+<p>To get started with Sar<em>t</em>re it is strongly recommended to copy the <code>sartre/example</code> directory
+    and build upon the examples (especially <code>sartreMain.cpp</code>) in this
+    directory. The
+    folder also contains the required <code>CMakeLists.txt</code> file for cmake
+    that you can adapt for you own program.</p>
+<p>Note that in order to run Sar<em>t</em>re you need to set the environment
+    variable
+    <code>SARTRE_DIR</code> to point to the installation directory. For example:</p>
+<pre class="code">
+# example using bash 
+export SARTRE_DIR=/usr/local/sartre</pre>
+<p>Then within the example directory:</p>
+<pre class="code">
+cmake .
+make</pre>
+
+<p>Will make all examples. You can also make them individually, for example <code>make
+    sartreMain</code>. In case you create you own Sartre project it is recommended
+    to use the <code>CMakeLists.txt</code> file and the <code>cmake/</code> directory
+    plus content contained
+    in the <code>examples/ </code>directory and modify it to your needs. Otherwise
+    you have to write you own Makefile from scratch.</p>
+<p>With that you should be set to get started. We recommend to have also a look
+    at the <a href="usersGuide.html">Users Guide</a> and for more details we refer to the <a href="referenceGuide.html">Reference
+    Guide</a>.</p>
+<address>
+<div align="center">
+        <table border="0" cellspacing="0" width="100%">
+        <tbody><tr class="address">
+                <td align="left" width="40%">&nbsp;</td>
+                <td align="center" width="20%">&nbsp;</td>
+                <td align="right" width="40%"><div align="right"><br>Last Update:
+                    <!-- #BeginDate format:Am1 -->October 9, 2018<!-- #EndDate -->
+                </div></td>
+</tr></tbody></table></div></address>
+
+</body></html>

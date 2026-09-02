@@ -1,0 +1,118 @@
+//==============================================================================
+//  sartreRuncard.txt
+//
+//  Copyright (C) 2010-2019 Tobias Toll and Thomas Ullrich
+//
+//  This file is part of Sartre.
+//
+//  This program is free software: you can redistribute it and/or modify 
+//  it under the terms of the GNU General Public License as published by 
+//  the Free Software Foundation.   
+//  This program is distributed in the hope that it will be useful, 
+//  but without any warranty; without even the implied warranty of 
+//  merchantability or fitness for a particular purpose. See the 
+//  GNU General Public License for more details. 
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Author: Thomas Ullrich 
+//  Last update: 
+//  $Date: 2019-06-10 23:53:14 +0530 (Mon, 10 Jun 2019) $
+//  $Author: ullrich $
+//==============================================================================
+// 
+//  Example Runcard for Sartre Event Generator. 
+// 
+//  Comments start with a # or // 
+// 
+//  Name and value are separated by a "=":  name = value 
+//  (alternatively ":" can be used as well) 
+//==============================================================================  
+# 
+#  Define beams 
+# 
+eBeamEnergy =  30
+hBeamEnergy =  920  
+A           =  1
+
+# 
+#  Number of events and printout frequency 
+# 
+numberOfEvents =  100000
+timesToShow    =  100
+ 
+# 
+#  Set verbosity 
+# 
+verbose       =  false
+verboseLevel  =  2
+# 
+#  Rootfile  
+# 
+rootfile =  example_tables.root
+
+#
+#  Dipole model
+#
+#  dipoleModel: can be bSat or bNonSat
+#  dipoleModelParameterSet:
+#  KMW: older set but most complete
+#  HMPZ: new parameters with still limited set
+#        of tables. For eA use KMW.
+#  STU: new parameters with still limited set
+#        (uses large dipole damping)
+#
+dipoleModel =  bSat
+dipoleModelParameterSet = STU
+
+# 
+# User variable
+# If you use the provided sartreMain.cpp this is
+# used for vector meson decays
+# PDG: pi+ = 211, K+ = 321, e- = 11, mu- = 13  
+# with BR=100%
+#
+userInt = 11
+
+# 
+#  Kinematic range min > max means no limits (given by table range) 
+# 
+#Q2min =  10
+#Q2max =  -11
+#Wmin  =  10.
+#Wmax  =  -10.049876
+#betamin = 0.1 
+#betamax = 1
+
+betamin = 0.1
+betamax = 0.9
+Q2min =  2.
+Q2max =  201.
+Wmin  =  20.
+Wmax  = 240.
+zmin  =  0.
+zmax  =  1.
+
+useInclusiveCrossSectionTables = true
+# 
+#  Misc 
+# 
+enableNuclearBreakup = false
+maxNuclearExcitationEnergy = 3.0
+ 
+# 
+#  Random generator seed (if not given current time is used) 
+# 
+seed =  0 #2011987 
+
+# 
+#  User parameters 
+# 
+# userDouble = 0.
+# userString = "Hello World!"
+# userInt = 0
+
+#
+#  Expert flags
+#
+applyPhotonFlux = true

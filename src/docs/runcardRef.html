@@ -1,0 +1,428 @@
+<!--
+ //==============================================================================
+ //  runcardRef.html
+ //
+ //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //
+ //  This file is part of Sartre version: 1.1 
+ //
+ //  This program is free software: you can redistribute it and/or modify 
+ //  it under the terms of the GNU General Public License as published by 
+ //  the Free Software Foundation.   
+ //  This program is distributed in the hope that it will be useful, 
+ //  but without any warranty; without even the implied warranty of 
+ //  merchantability or fitness for a particular purpose. See the 
+ //  GNU General Public License for more details. 
+ //  You should have received a copy of the GNU General Public License
+ //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //
+ //  Author: Thomas Ullrich
+ //  Last update: 
+ //  $Date: 2013-05-29 22:25:21 +0200 (Wed, 29 May 2013) $
+ //  $Author: thomas.ullrich@bnl.gov $
+ //==============================================================================
+ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Sartre - Runcard Reference</title>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
+                <td width="10">&nbsp;&nbsp;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot; 
+                    <a href="usersGuide.html"><font color="#004faf">Users Guide</font></a>&nbsp;&middot; 
+                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+        </table>
+        
+        <h1 class="title">Runcard Reference</h1>
+        <p>Runcards
+        are simple text files that are read by Sar<em>t</em>re in the initialization
+        step. Each line contains a variable that controls how Sar<em>t</em>re
+        is setup but it also contains variables you can (but not have to) use
+        to control things like the number of events to process. Each variable
+        has its equivalent in the corresponding <a href="refSettings.html">Settings</a> classes,
+        that is class <a href="refEventGeneratorSettings.html">EventGeneratorSettings</a> for
+        the event generator and
+        class TableGeneratorSettings for
+        running sartre in table generator mode. Every variable  can be set via
+        methods in these classes (programmatically) or via runcard. See <a href="sartreRef.html#details">here</a> for
+        more details.</p>
+        <p>Comments start with a <code>#</code> or <code>//</code>. Blank lines are ignored.<br />
+        <br />
+        Variable name and value are separated by a &quot;<code>=</code>&quot; (<code>name
+            = value</code>) . Alternatively &quot;<code>:</code>&quot; can be used
+        as well. </p>
+        <p>Boolean values should be set with <code>true/false</code> but <code>yes/no</code> and <code>on/off </code>are
+        also recognized.</p>
+        <h2>Runcard Syntax for Event Generator</h2>
+        <table width="100%" border="0" cellpadding="5">
+            <tr>
+                <th width="20%" bgcolor="#CCCCCC" scope="col"><div align="left">Variable <br />
+                </div></th>
+                <th width="10%" bgcolor="#CCCCCC" scope="col"><div align="left">Type</div></th>
+                <th bgcolor="#CCCCCC" scope="col"><div align="left">Description</div></th>
+                <th width="10%" bgcolor="#CCCCCC" scope="col"><div align="left">Default</div></th>
+            </tr>
+            <tr>
+                <td valign="top"><a name="eBeamEnergy" id="eBeamEnergy"></a>eBeamEnergy </td>
+                <td valign="top">floating point</td>
+                <td valign="top">Electron beam energy in GeV.</td>
+                <td valign="top">10.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="hBeamEnergy" id="hBeamEnergy"></a>hBeamEnergy</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Hadron (proton or ion) beam energy in GeV.</td>
+                <td valign="top">100.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="A" id="A"></a>A</td>
+                <td valign="top">integer</td>
+                <td valign="top">Hadron beam particle mass (not all nuclei are implemented).</td>
+                <td valign="top">1</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="vectorMesonId" id="vectorMesonId"></a>vectorMesonId</td>
+                <td valign="top">integer</td>
+                <td valign="top">Vector meson to generate. Mesons are given using their PDG values.</td>
+                <td valign="top">443</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="dipoleModel" id="dipoleModel"></a>dipoleModel</td>
+                <td valign="top">string</td>
+                <td valign="top">Dipole model to be used. Can be (bSat, bNonSat, or bCGC).</td>
+                <td valign="top">bSat</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="Q2min" id="Q2min"></a>Q2min</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Minimum Q<sup>2</sup> in GeV<sup>2</sup> to generate. If Q2min &gt; Q2max then the max
+                    available range is used, either given by kinematics or the range
+                    of the available tables.</td>
+                <td valign="top">1000.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="Q2max" id="Q2max"></a>Q2max</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Maximum Q<sup>2</sup> (in GeV<sup>2</sup>) to generate.</td>
+                <td valign="top">0.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="Wmin" id="Wmin"></a>Wmin</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Minimum W (in GeV) to generate. If Wmin &gt; Wmax then the
+                    maximum available range is used, either given by kinematics or
+                    the range of the available tables.</td>
+                <td valign="top">1000.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="Wmax" id="Wmax"></a>Wmax</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Maximum W (in GeV) to generate.</td>
+                <td valign="top">0.</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="correctForRealAmplitude" id="correctForRealAmplitude"></a>correctForRealAmplitude</td>
+                <td valign="top">boolean</td>
+                <td valign="top">Switch corrections for missing real amplitude on or off.</td>
+                <td valign="top">true</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="correctSkewedness" id="correctSkewedness"></a>correctSkewedness</td>
+                <td valign="top">boolean</td>
+                <td valign="top">Switch skewedness corrections on or
+                    off.</td>
+                <td valign="top">true</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="maxLambdaUsedInCorrections" id="maxLambdaUsedInCorrections"></a>maxLambdaUsedInCorrections</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Skewedness and real amplitude corrections depend on the log derivative
+                    of the amplitude with respect to W<sup>2</sup> (or <em>x</em>).
+                    At large<em> x </em>or in case of numerical glitches this slope
+                    can become unreasonable
+                    large. This variable controls the maximum allowed value. For
+                    experts only.</td>
+                <td valign="top">0.65</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="enableNuclearBreakup" id="enableNuclearBreakup"></a>enableNuclearBreakup</td>
+                <td valign="top">boolean</td>
+                <td valign="top">Enable nuclear breakup. This is off by default
+                    since it slows Sar<em>t</em>re down substantially. Use only
+                    if you truly want to study the breakup products.</td>
+                <td valign="top">false</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="maxNuclearExcitationEnergy" id="maxNuclearExcitationEnergy"></a>maxNuclearExcitationEnergy</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Nuclear breakup is performed by the gemini++ model. This model
+                    comes to a grinding halt for too large excitation energies. Note
+                    that already at moderate excitation energies the nucleus breaks
+                    completely up.  For
+                    experts only.</td>
+                <td valign="top">1.4</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="applyPhotonFlux" id="applyPhotonFlux"></a>applyPhotonFlux</td>
+                <td valign="top">boolean</td>
+                <td valign="top">Flag to control if the photon flux is applied or not. This should
+                    be always on in generator mode. There are a few cases (see example
+                    program <code>heraCompare.cpp</code>) when Sar<em>t</em>re is
+                    used to calculate cross-sections only,  where this might
+                    be useful. For experts only.</td>
+                <td valign="top">true</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="UPC" id="UPC"></a>UPC</td>
+                <td valign="top">boolean</td>
+                <td valign="top">
+                Flag that controls wether to simulate ultra peripheral collisions (UPC) or not. If
+                <code>true</code>, the photon-flux will be calculated from a hadron with atomic
+                number determined by <code>UPCA</code>.
+                </td>
+                <td valign="top">false</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="UPCA" id="UPC"></a>UPCA</td>
+                <td valign="top">integer</td>
+                <td valign="top">
+                The atomic number of the beam-particle which emits the virtual photon.
+                UPCA has no effect when <code>UPC=false</code>.
+                </td>
+                <td valign="top">1</td>
+            </tr>            <tr>
+                <td valign="top"><a name="verbose" id="verbose"></a>verbose</td>
+                <td valign="top">boolean</td>
+                <td valign="top">If on prints additionally information during initialization and
+                    event processing. Can be fine tuned with verboseLevel.</td>
+                <td valign="top">false</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="verboseLevel" id="verboseLevel"></a>verboseLevel</td>
+                <td valign="top">integer</td>
+                <td valign="top">Level of verbosity, typically 1 or 2. Higher values are for debugging
+                    purposes only. If &gt; 0 automatically sets the verbose flag
+                    (see above) to true.</td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="seed" id="seed"></a>seed</td>
+                <td valign="top">integer</td>
+                <td valign="top">Random generator seed. If not set, Sar<em>t</em>re
+                    will use the current time (time(0)) as seed implying
+                    that repeated runs produce different events. </td>
+                <td valign="top">current time</td>
+            </tr>
+            <tr>
+                <td colspan="4" valign="top" bgcolor="#eeeeee"><p>The following values are not used by Sartre directly
+                    but are meant to be used in your main program to control the
+                    run and output. See example program <code>sartreMain.cpp</code>.</p></td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="numberOfEvents" id="numberOfEvents"></a>numberOfEvents</td>
+                <td valign="top">integer</td>
+                <td valign="top">Number of events to generate.</td>
+                <td valign="top">10000</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="timesToShow" id="timesToShow"></a>timesToShow</td>
+                <td valign="top">integer</td>
+                <td valign="top">How many times the current status (number of events generated
+                    so far) should be printed.</td>
+                <td valign="top">100</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="rootfile" id="rootfile"></a>rootfile</td>
+                <td valign="top">string</td>
+                <td valign="top">Name of the file where the user writes his output
+                    (typically
+                    a root file, hence the name).</td>
+                <td valign="top">sartre.root</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="userInt" id="userInt"></a>userInt</td>
+                <td valign="top">integer</td>
+                <td valign="top">Integer user variable.</td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="userDouble" id="userDouble"></a>userDouble</td>
+                <td valign="top">floating point</td>
+                <td valign="top">User variable of type double.</td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top"><a name="userString" id="userString"></a>userString</td>
+                <td valign="top">string</td>
+                <td valign="top">User variable of type string.</td>
+                <td valign="top">&quot;&quot;</td>
+            </tr>
+        </table>
+        
+        <h2>Runcard Syntax for Table Generator</h2>
+        
+        <table width="100%" border="0" cellpadding="5">
+            <tr>
+                <th width="20%" bgcolor="#CCCCCC" scope="col"><div align="left">Variable <br />
+                </div></th>
+                <th width="10%" bgcolor="#CCCCCC" scope="col"><div align="left">Type</div></th>
+                <th bgcolor="#CCCCCC" scope="col"><div align="left">Description</div></th>
+                <th width="10%" bgcolor="#CCCCCC" scope="col"><div align="left">Default</div></th>
+            </tr>
+            <tr>
+                <td valign="top">A</td>
+                <td valign="top">integer</td>
+                <td valign="top">Atomic number of the nucleus.</td>
+                <td valign="top">1</td>
+            </tr>
+            <tr>
+                <td valign="top">modesToCalculate</td>
+                <td valign="top">integer</td>
+                <td valign="top">Switch that determines which modes of the amplitude is calculated. <br />
+                    0: Calculates &lt;A&gt; analytically and &lt;A<sup>2</sup>&gt; averaged over configurations. <br />
+                    1: Calculates only &lt;A&gt; analytically. <br />
+                    2: Calculates both &lt;A&gt; and &lt;A<sup>2</sup>&gt; averaged over configurations. 
+                </td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top">vectorMesonId</td>
+                <td valign="top">integer</td>
+                <td valign="top">Mesons are given using their PDG values.	</td>
+                <td valign="top">443</td>
+            </tr>
+            <tr>
+                <td valign="top">dipoleModel</td>
+                <td valign="top">string</td>
+                <td valign="top">Dipole model to be used. Can be (bSat, bNonSat, or bCGC).</td>
+                <td valign="top">bSat</td>
+            </tr>
+            <tr>
+                <td valign="top">bSatLookupPath</td>
+                <td valign="top">string</td>
+                <td valign="top">Tells the program where to find the table containing the configurations to be averaged over.</td>
+                <td valign="top">./</td>
+            </tr>
+            <tr>
+                <td valign="top">Q2min</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Minimum Q<sup>2</sup> (in GeV<sup>2</sup>) in the table. </td>
+                <td valign="top">0.1</td>
+            </tr>
+            <tr>
+                <td valign="top">Q2max</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Maximum Q<sup>2</sup> (in GeV<sup>2</sup>)  in the table.</td>
+                <td valign="top">100</td>
+            </tr>
+            <tr>
+                <td valign="top">Wmin</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Minimum W (in GeV) in the table.</td>
+                <td valign="top">5</td>
+            </tr>
+            <tr>
+                <td valign="top">Wmax</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Maximum W (in GeV) in the table.</td>
+                <td valign="top">100</td>
+            </tr>
+            <tr>
+                <td valign="top">tmin</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Minimum t (in GeV<sup>2</sup>) in the table.</td>
+                <td valign="top">-2</td>
+            </tr>
+            <tr>
+                <td valign="top">tmax</td>
+                <td valign="top">floating point</td>
+                <td valign="top">Maximum t (in GeV<sup>2</sup>) in the table.</td>
+                <td valign="top">0</td>
+            </tr>
+            
+            <tr>
+                <td valign="top">Q2bins</td>
+                <td valign="top">integer</td>
+                <td valign="top">Number of bins in Q<sup>2</sup> to be generated.</td>
+                <td valign="top">10</td>
+            </tr>
+            <tr>
+                <td valign="top">W2bins</td>
+                <td valign="top">integer</td>
+                <td valign="top">Number of bins in W to be generated.</td>
+                <td valign="top">10</td>
+            </tr>
+            <tr>
+                <td valign="top">tbins</td>
+                <td valign="top">integer</td>
+                <td valign="top">Number of bins in t to be generated.</td>
+                <td valign="top">10</td>
+            </tr>
+            <tr>
+                <td valign="top">numberOfConfigurations</td>
+                <td valign="top">integer</td>
+                <td valign="top">Number of configurations to average over.</td>
+                <td valign="top">500</td>
+            </tr>
+            <tr>
+                <td valign="top">rootfile</td>
+                <td valign="top">string</td>
+                <td valign="top">Base for the names of the 4 (or 2) tables that are generated. 
+                    "_T", "_T2", "_L", "L2" will be appended respectively as well as ".root".</td>
+                <td valign="top">sartre</td>
+            </tr>
+            <tr>
+                <td valign="top">seed</td>
+                <td valign="top">integer</td>
+                <td valign="top">Seed for random number generator.</td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top">useBackupFile</td>
+                <td valign="top">boolean</td>
+                <td valign="top">If a table generation fails, the result may be saved in backup files with filenames ending with
+                    "_backup.&lt;tableId&gt;.&lt;backupBin&gt;.root", where &lt;tableId&gt; is T, T2, L, L2 and &lt;backupBin&gt; is the global bin number at 
+                    which the table is saved.</td>
+                <td valign="top">false</td>
+            </tr>
+            <tr>
+                <td valign="top">startingBinFromBackup</td>
+                <td valign="top">integer</td>
+                <td valign="top">The global bin-number from which you want to resume a failed table generation.</td>
+                <td valign="top">0</td>
+            </tr>
+            <tr>
+                <td valign="top">startBin</td>
+                <td valign="top">integer</td>
+                <td valign="top">The global bin number from which you want to start generating the table. Ignored if negative.</td>
+                <td valign="top">-1</td>
+            </tr>
+            <tr>
+                <td valign="top">endBin</td>
+                <td valign="top">integer</td>
+                <td valign="top">The global bin number from which you want to end the table generation. Ignored if negative.</td>
+                <td valign="top">-1</td>
+            </tr>
+            
+        </table>
+        <p>&nbsp;</p>
+        
+        <address><div align="center">
+            <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
+                <td align="left" width="40%">&nbsp;</td>
+                <td align="center" width="20%">&nbsp;</td>
+                <td align="right" width="40%"><div align="right"><br>Last Update:
+                    <!-- #BeginDate format:Am1 -->February 21, 2013<!-- #EndDate -->
+                </div></td>
+            </tr></tbody></table></div></address>
+        
+    </body></html>

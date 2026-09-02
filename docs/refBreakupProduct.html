@@ -1,0 +1,125 @@
+<!--
+ //==============================================================================
+ //  refBreakupProduct.html
+ //
+ //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //
+ //  This file is part of Sartre version: 1.1 
+ //
+ //  This program is free software: you can redistribute it and/or modify 
+ //  it under the terms of the GNU General Public License as published by 
+ //  the Free Software Foundation.   
+ //  This program is distributed in the hope that it will be useful, 
+ //  but without any warranty; without even the implied warranty of 
+ //  merchantability or fitness for a particular purpose. See the 
+ //  GNU General Public License for more details. 
+ //  You should have received a copy of the GNU General Public License
+ //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //
+ //  Author: Thomas Ullrich
+ //  Last update: 
+ //  $Date: 2013-05-29 22:25:21 +0200 (Wed, 29 May 2013) $
+ //  $Author: thomas.ullrich@bnl.gov $
+ //==============================================================================
+ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Sartre - BreakupProduct Structure Reference</title>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
+                <td width="10">&nbsp;&nbsp;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot; 
+                    <a href="usersGuide.html"><font color="#004faf">Users Guide</font></a>&nbsp;&middot; 
+                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+        </table>
+        <h1 class="title"> BreakupProduct  Structure Reference</h1>
+        <p> BreakupProduct  is a simple structure holding all information
+        of fragments of a nuclear breakup in incoherent eA collisions. <a href="#details">More...</a></p>
+        <pre><span class="preprocessor"> #include</span> "BreakupProduct.h"</pre>
+        <hr>
+        <h2>Data Member</h2>
+        <table class="alignedsummary" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">     double </td>
+                    <td class="memItemRight" valign="top"><a href="#mZ">Z</a>          </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">    double </td>
+                    <td class="memItemRight" valign="top"><a href="#mA">A</a>          </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">    double </td>
+                    <td class="memItemRight" valign="top"><a href="#mEmissionTime">emissionTime</a>  </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">    long   </td>
+                    <td class="memItemRight" valign="top"><a href="#mId">pdgId</a>            </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">    TLorentzVector </td>
+                    <td class="memItemRight" valign="top"><a href="#mP">p</a>     </td>
+                </tr>
+                <tr>
+                    <td class="memItemLeft" align="right" valign="top">    string </td>
+                    <td class="memItemRight" valign="top"><a href="#mName">name</a>          </td>
+                </tr>
+            </tbody></table>
+        <hr>
+        <h2><a name="details" id="details"></a>Detailed Description</h2>
+        <p>BreakupProduct holds information about the fragments created
+        by nuclear breakup in incoherent eA collisions. They essentially hold the
+        results of Gemini++ the Monte Carlo used to describe the nuclear breakup.
+        Each fragment from Gemini++ is stored as a BreakupProduct structure and kept
+        in a vector that is later passed and stored in the <a href="refEvent.html">event
+            record</a> if nuclear
+        breakup is switched on (via <a href="runcardRef.html#enableNuclearBreakup">runcard</a> or <a href="refEventGeneratorSettings.html#setEnableNuclearBreakup">programmatically</a>).
+        The emission time
+        of the fragment is in units of 10<sup>-21</sup> seconds since the creation of
+        the compound nucleus in the nucleus rest frame.  This unit is
+        common in NP and we left it as provided by Gemini. Note that the 4-momentum (p)
+        is already boosted into the Sartre lab frame. 4-momenta are <strong>not</strong> expressed
+        per nucleon here as it is done in the main <a href="refEvent.html">event record</a>.
+        <hr> 
+        <h2>Public Data Member  Documentation</h2>
+        <h3 class="fn"><span class="memItemRight"><a name="mZ" id="mZ"></a>     double
+            Z           </span></h3>
+        <p>Z of the fragment</p>
+        <h3 class="fn"><span class="memItemRight"><a name="mA" id="mA"></a>    double
+            A           </span></h3>
+        <p>A of the fragment</p>
+        <h3 class="fn"><span class="memItemRight"><a name="mEmissionTime" id="mEmissionTime"></a>    double
+            emissionTime   </span></h3>
+        <p>Emission time of the fragment in units of 10<sup>-21</sup> seconds since the
+        creation of the compound nucleus in the nucleus rest frame.</p>
+        <h3 class="fn"><span class="memItemRight"><a name="mId" id="mId"></a>    long
+            pdgId             </span></h3>
+        <p>PDG identifier of the fragment.</p>
+        <h3 class="fn"><span class="memItemRight"><a name="mP" id="mP"></a>    TLorentzVector
+            p      </span></h3>
+        <p>4-momentum of the fragment (ROOT 4-vector). <strong>Not</strong> expressed as per nucleon as
+        is the case in Sar<em>t</em>re main <a href="refEvent.html">event record</a>.</p>
+        <h3 class="fn"><span class="memItemRight"><a name="mName" id="mName"></a>    string
+            name           </span></h3>
+        <p>Name of the fragment.</p>
+        
+        <p>&nbsp;</p>
+        
+        <address><div align="center">
+            <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
+                <td align="left" width="40%">&nbsp;</td>
+                <td align="center" width="20%">&nbsp;</td>
+                <td align="right" width="40%"><div align="right"><br>Last Update:
+                    <!-- #BeginDate format:Am1 -->November 30, 2012<!-- #EndDate -->
+                </div></td>
+            </tr></tbody></table></div></address>
+        
+    </body></html>

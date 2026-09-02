@@ -1,0 +1,80 @@
+<!--
+ //==============================================================================
+ //  UPCcondiderations.html
+ //
+ //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //
+ //  This file is part of Sartre version: 1.1 
+ //
+ //  This program is free software: you can redistribute it and/or modify 
+ //  it under the terms of the GNU General Public License as published by 
+ //  the Free Software Foundation.   
+ //  This program is distributed in the hope that it will be useful, 
+ //  but without any warranty; without even the implied warranty of 
+ //  merchantability or fitness for a particular purpose. See the 
+ //  GNU General Public License for more details. 
+ //  You should have received a copy of the GNU General Public License
+ //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //
+ //  Author: Tobias Toll
+ //  Last update: 
+ //  $Date: 2013-01-14 16:47:38 -0500 (Mon, 14 Jan 2013) $
+ //  $Author: thomas.ullrich@bnl.gov $
+ //==============================================================================
+ -->
+ <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Sartre - Generating Ultra-Peripheral Collisions</title>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+       <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
+                <td width="10">&nbsp;&nbsp;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot;<font color="#004faf"> <a href="usersGuide.html">Users
+                        Guide</a></font>&nbsp;&middot; 
+                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+        </table>
+        
+        <h1 class="title">Generating Ultra-Peripheral Collisions</h1>
+        <p>
+        There are a few things to consider while writing a user program
+        for simulation of ultra peripheral hadron-hadron collisions (UPC):
+        </p>
+        <ul>
+            <li>
+                In Sar<em>t</em>re, the beam particle emitting the photon is
+                always the beam particle coming from the right, <em>i.e.</em> with
+                negative momentum in the <var>z</var> direction. For UPC events
+                with symmetric beams one then needs to reflect the entire event
+                in <var>the xy</var>-plane
+                in half of the events, preferably chosen at random.
+            </li>
+            <li>
+                When running UPC for symmetric beams, the cross-section given
+                    by calling <code><a href="refSartre.html#totalCrossSection">Sartre::totalCrossSection()</a></code> has to
+                    be multiplied by a factor 2.
+            </li>
+            <li>
+                When running with asymmetric beams, <em>e.g. </em>proton-gold, one has
+                    to run events with A=1 and UPCA=197, as well as events with
+                    A=197 and UPCA=1. These events then has to be weighted by
+                    respective cross-section. This can be avoided if one can
+                    make experimental cuts such that one of the processes dominates
+            the events. </li>
+        </ul>
+        <address><div align="center">
+            <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
+                <td align="left" width="40%">&nbsp;</td>
+                <td align="center" width="20%">&nbsp;</td>
+                <td align="right" width="40%"><div align="right"><br>Last Update:
+                    <!-- #BeginDate format:Am1 -->February 21, 2013<!-- #EndDate -->
+                </div></td>
+            </tr></tbody></table></div></address>
+        
+    </body></html>

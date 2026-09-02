@@ -1,0 +1,72 @@
+<!--
+ //==============================================================================
+ //  tableTools.html
+ //
+ //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //
+ //  This file is part of Sartre version: 1.1 
+ //
+ //  This program is free software: you can redistribute it and/or modify 
+ //  it under the terms of the GNU General Public License as published by 
+ //  the Free Software Foundation.   
+ //  This program is distributed in the hope that it will be useful, 
+ //  but without any warranty; without even the implied warranty of 
+ //  merchantability or fitness for a particular purpose. See the 
+ //  GNU General Public License for more details. 
+ //  You should have received a copy of the GNU General Public License
+ //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //
+ //  Author: Thomas Ullrich
+ //  Last update: 
+ //  $Date: 2013-01-14 16:47:38 -0500 (Mon, 14 Jan 2013) $
+ //  $Author: thomas.ullrich@bnl.gov $
+ //==============================================================================
+ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Sartre - What's new?</title>
+        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
+                <td width="10">&nbsp;&nbsp;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot;<font color="#004faf"> <a href="usersGuide.html">Users
+                        Guide</a></font>&nbsp;&middot; 
+                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+        </table>
+        
+        <h1 class="title">What's New?</h1>
+        <h3>Version 1.1</h3>
+        <p>Due to continuous numerical issues in calculating the logarithmic
+            derivative of the amplitude along <em>x</em> (typically called &lambda;)
+            that is needed to calculate the skewedness and real amplitude corrections
+            we decided to create
+            lambda lookup tables and include them in the <code>tables/</code> directory.
+            &lambda; is 
+            derived from the referring ep table (also when running eA). If the
+            kinematic range is not sufficient, that is if the amplitude table
+            range used is larger than that of the &lambda; table, we fallback
+            to calculating the value on the fly from the referring ep table.
+            If the latter is not large enough corrections are switched off. In
+            any case the user is informed about what is happening. One side effect
+            of this change is that event generation with corrections <em>on</em> became
+            generally faster.</p>
+<p>&nbsp;</p>
+        
+        <address><div align="center">
+            <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
+                <td align="left" width="40%">&nbsp;</td>
+                <td align="center" width="20%">&nbsp;</td>
+                <td align="right" width="40%"><div align="right"><br>Last Update:
+                    <!-- #BeginDate format:Am1 -->May 29, 2013<!-- #EndDate -->
+                </div></td>
+            </tr></tbody></table></div></address>
+        
+    </body></html>
