@@ -183,7 +183,7 @@ double AlphaStrong::at(double R2)
 {
     double M2 = R2 * exp(mLogFR);
     int NF;
-    double R20, ASI, ASF, R2T, R2B, R2C;
+    double R20, ASF, R2T, R2B, R2C;  // ASI removed: computed but never used (see below)
     
     if (mVarFlavourNumScheme == 0) {
         //
@@ -191,7 +191,7 @@ double AlphaStrong::at(double R2)
         //
         NF  = mNumFlavorsFFNS;
         R20 = mM20 * R2/M2;
-        ASI = mAS0;
+        // ASI = mAS0;     // not used
         ASF = as(R2, R20, mAS0, NF);
     }
     else {
@@ -201,25 +201,25 @@ double AlphaStrong::at(double R2)
         if (M2 > mM2T) {
             NF = 6;
             R2T = mM2T * R2/M2;
-            ASI = mAST;
+            // ASI = mAST;     // not used
             ASF = as(R2, R2T, mAST, NF);
         }
         else if (M2 > mM2B) {
             NF = 5;
             R2B = mM2B * R2/M2;
-            ASI = mASB;
+            // ASI = mASB;     // not used
             ASF = as(R2, R2B, mASB, NF);
         }
         else if  (M2 > mM2C) {
             NF = 4;
             R2C = mM2C * R2/M2;
-            ASI = mASC;
+            // ASI = mASC;     // not used
             ASF = as(R2, R2C, mASC, NF);
         }
         else {
             NF = 3;
             R20 = mM20 * R2/M2;
-            ASI = mAS0;
+            // ASI = mAS0;     // not used
             ASF = as(R2, R20, mAS0, NF);
         }
     }

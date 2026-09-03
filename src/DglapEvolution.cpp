@@ -341,7 +341,7 @@ void DglapEvolution::reno(complex<double> *fn, double alpq, int nmax, double ag,
                                     + 1.0 / (xn - lambdag - 1.0));
                 
         int f;
-        double xl, s,  alp;
+        double xl, s;  // alp removed: computed but never used (see below)
         complex<double> ep, gl;
         
         if (alpq >= mALPC) {   // evolution below the charm threshold
@@ -382,7 +382,7 @@ void DglapEvolution::reno(complex<double> *fn, double alpq, int nmax, double ag,
             gln = ep * gl;
             
             f = 4;
-            alp = mALPB;
+            // alp = mALPB;     // not used
             xl = mALPC / mALPB;
             s   = log (xl);
             ep  = exp(-mAP[k1][f]*s);

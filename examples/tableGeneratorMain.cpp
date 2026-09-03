@@ -17,7 +17,7 @@
 //
 //  Author: Tobias Toll
 //  Last update:
-//  $Date: 2026-06-06 08:46:28 +0200 (Sat, 06 Jun 2026) $
+//  $Date: 2026-06-06 12:16:28 +0530 (Sat, 06 Jun 2026) $
 //  $Author: ttoll $
 //==============================================================================
 //
@@ -188,7 +188,6 @@ int main(int argc, char *argv[]) {
         //
         // ── Define your custom t-grid here
         //
-        double tAbsMin=0, tAbsMax=0;
         int iregion=settings->userInt();
         if(iregion==1){
             if(!(settings->numberOfConfigurations()==100 &&
@@ -645,7 +644,6 @@ int main(int argc, char *argv[]) {
     //  Normal path: existing per-(Q2, W2, t) bin loop.
     // =========================================================================
     else if(!useFFT) {
-        cout<<"#TT HERE !"<<endl;
         int nShow = (endingBin - startingBin)/100;
         if (nShow == 0) nShow = 1;
         

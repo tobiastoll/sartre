@@ -17,7 +17,7 @@
 //
 //  Author: Thomas Ullrich
 //  Last update: 
-//  $Date: 2026-06-05 14:31:22 +0200 (Fri, 05 Jun 2026) $
+//  $Date: 2026-06-05 18:01:22 +0530 (Fri, 05 Jun 2026) $
 //  $Author: ttoll $
 //==============================================================================
 //    
@@ -517,7 +517,7 @@ unsigned int Table::create(int nbinsQ2, double Q2min, double Q2max,
 
     // Build the table ID — identical logic to the uniform create(), but
     // logt=false (variable bins are always stored as linear |t|).
-    const bool logt = false;
+    //    const bool logt = false;
     mID = (vm << 16);
     mID |= (A << 8);
     mID |= (model << 5);

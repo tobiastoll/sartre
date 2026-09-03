@@ -343,7 +343,7 @@ bool Kinematics::validUPC(double hBeamEnergy, double eBeamEnergy, double t, doub
     return true; //survived all tests
 }
 
-bool Kinematics::valid(double s, double beta, double Q2, double W2, double z, double MX, bool useTrueXp, bool verbose){
+bool Kinematics::valid(double s, double beta, double Q2, double W2, double z, double MX, bool /*useTrueXp*/, bool verbose){
     double x = Kinematics::x(Q2, W2);
     double y = Kinematics::y(Q2, x, s);
     double xpom=x/beta;

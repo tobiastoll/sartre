@@ -257,15 +257,16 @@ bool TableGeneratorNucleus::generateSatScales() {
     mSatScales.clear();
     
     for (unsigned int jS=0; jS<Nq; jS++) {
-        double   r, x, y, z,a1,b1,x1,y1, mean=0, var=sigma2; //x1,y1 are the normally distributed values
+        // Box-Muller gives two independent Gaussian samples (x1, y1); only
+        // x1 is needed here (a single scalar Qs weight), so y1/b1 are not
+        // computed — generateProton() below needs both for a 2D position.
+        double   r, x, y, z,a1,x1, mean=0, var=sigma2;
         y = rn.Uniform(1);
         z = rn.Uniform(1);
         x = z * 2*M_PI;
         r = sqrt(-2*log(y));
         a1 = (Float_t)(r * sin(x));
-        b1 = (Float_t)(r * cos(x));
         x1 = mean + sqrt(var)*a1;
-        y1 = mean + sqrt(var)*b1;
         
         mSatScales.push_back(exp(x1));
         

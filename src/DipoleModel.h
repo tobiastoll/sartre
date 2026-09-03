@@ -87,12 +87,12 @@ public:
     DipoleModel_bSat& operator=(const DipoleModel_bSat&);  
     ~DipoleModel_bSat();
 
-    void   createSigma_ep_LookupTable(double);
-    void   createConfiguration(int);
-    double dsigmadb2(double, double, double, double);  
-    double bDependence(double, double);  
-    double dsigmadb2ep(double, double, double);  
-    double coherentDsigmadb2(double, double, double);
+    void   createSigma_ep_LookupTable(double) override;
+    void   createConfiguration(int) override;
+    double dsigmadb2(double, double, double, double) override;  
+    double bDependence(double, double) override;  
+    double dsigmadb2ep(double, double, double) override;  
+    double coherentDsigmadb2(double, double, double) override;
 
     bool   canUseFastPath() const override                    { return true; }
     double computeRFactor(double r, double xprobe) override;
@@ -129,9 +129,9 @@ public:
     DipoleModel_bNonSat(Settings*);
     ~DipoleModel_bNonSat();
     
-    double dsigmadb2(double, double, double, double);
-    double dsigmadb2ep(double, double, double);  
-    double coherentDsigmadb2(double, double, double);
+    double dsigmadb2(double, double, double, double) override;
+    double dsigmadb2ep(double, double, double) override;  
+    double coherentDsigmadb2(double, double, double) override;
 
     double computeRFactor(double r, double xprobe) override;
     double dsigmaFromOmega(double omega) const override;
@@ -148,10 +148,10 @@ class DipoleModel_bCGC : public DipoleModel {
 public:
     DipoleModel_bCGC();
     
-    void   createConfiguration(int);
-    double dsigmadb2(double, double, double, double);  
-    double dsigmadb2ep(double, double, double);  
-    double bDependence(double);  
+    void   createConfiguration(int) override;
+    double dsigmadb2(double, double, double, double) override;  
+    double dsigmadb2ep(double, double, double) override;  
+    double bDependence(double) override;  
 };  
 
 #endif  

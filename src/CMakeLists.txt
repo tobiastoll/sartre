@@ -102,12 +102,24 @@ string(STRIP "${LIBS}" LIBS)
 # BOOST — optional. Only Amplitudes.cpp uses it (boost::thread), and only
 # inside "#if defined(SARTRE_IN_MULTITHREADED_MODE)". No point requiring it
 # from users who never turn MULTITHREADED on.
+#
+# CMP0167-ready discovery (merged from Thomas's independent r600 revision):
+# Boost >= 1.70 ships its own CMake package config, which CMake >= 3.30
+# (our minimum) may prefer over the legacy FindBoost.cmake module depending
+# on policy CMP0167. Try the modern config first; fall back to the legacy
+# module on older/system Boost installs that don't ship one.
 if (MULTITHREADED)
     set(Boost_USE_MULTITHREADED ON)
-    find_package(Boost COMPONENTS thread REQUIRED)
-    if(Boost_FOUND)
-        set(LIBS ${LIBS} ${Boost_LIBRARIES})
-    endif(Boost_FOUND)
+    if(POLICY CMP0167)
+        cmake_policy(SET CMP0167 NEW)
+    endif()
+    find_package(Boost 1.70 QUIET COMPONENTS thread CONFIG)
+    if(NOT Boost_FOUND)
+        if(POLICY CMP0167)
+            cmake_policy(SET CMP0167 OLD)
+        endif()
+        find_package(Boost REQUIRED COMPONENTS thread)
+    endif()
 endif (MULTITHREADED)
 
 # strip leading and trailing blanks
@@ -121,6 +133,11 @@ string(STRIP "${LIBS}" LIBS)
 # set -DENABLE_INCLUSIVE_DIFFRACTION=OFF to build without Pythia8.
 option(ENABLE_INCLUSIVE_DIFFRACTION
        "Build inclusive-diffraction event generation (requires Pythia8)" ON)
+
+# Merged from Thomas's independent r600 revision: skip the six CLI table
+# tools entirely if you only want the library.
+option(SARTRE_BUILD_TOOLS "Build table CLI tools" ON)
+
 if (ENABLE_INCLUSIVE_DIFFRACTION)
     find_package(Pythia8 REQUIRED MODULE)
     if(APPLE)
@@ -233,15 +250,26 @@ target_include_directories(sartre PUBLIC
     ${GSL_INCLUDE_DIR}
     ${ROOT_INCLUDE_DIR}
 )
-# Boost_INCLUDE_DIR / PYTHIA8_INCLUDE_DIR are only defined when their
-# find_package() actually ran above; harmless (empty) to append otherwise.
-if (MULTITHREADED)
-    target_include_directories(sartre PUBLIC ${Boost_INCLUDE_DIR})
-endif()
+# PYTHIA8_INCLUDE_DIR is only defined when find_package(Pythia8) actually
+# ran above; harmless (empty) to append otherwise.
 if (ENABLE_INCLUSIVE_DIFFRACTION)
     target_include_directories(sartre PUBLIC ${PYTHIA8_INCLUDE_DIR})
 endif()
 target_link_libraries(sartre PUBLIC ${LIBS})
+
+# Boost linking: CONFIG mode (Boost >= 1.70's own CMake package) provides
+# the Boost::thread imported target, which already carries its own include
+# directories — nothing more to do. MODULE-mode fallback (legacy
+# FindBoost.cmake) instead populates the classic Boost_LIBRARIES /
+# Boost_INCLUDE_DIR variables, which must be added explicitly.
+if (MULTITHREADED)
+    if (TARGET Boost::thread)
+        target_link_libraries(sartre PUBLIC Boost::thread)
+    else()
+        target_include_directories(sartre PUBLIC ${Boost_INCLUDE_DIR})
+        target_link_libraries(sartre PUBLIC ${Boost_LIBRARIES})
+    endif()
+endif()
 
 # Ensure the Cuba static library is built before anything that might need
 # it at link time; also avoids a make -j race on the ExternalProject step.
@@ -250,19 +278,21 @@ add_dependencies(sartre cuba)
 #
 #  Table tools (all stand alone programs)
 #
-set(TABLE_TOOLS
-    tableInspector
-    tableMerger
-    tableQuery
-    tableDumper
-    tablePriority
-    tableVarianceMaker
-)
-foreach(tool ${TABLE_TOOLS})
-    add_executable(${tool} ${tool}.cpp)
-    target_link_libraries(${tool} sartre)
-    add_dependencies(${tool} sartre)
-endforeach()
+if (SARTRE_BUILD_TOOLS)
+    set(TABLE_TOOLS
+        tableInspector
+        tableMerger
+        tableQuery
+        tableDumper
+        tablePriority
+        tableVarianceMaker
+    )
+    foreach(tool ${TABLE_TOOLS})
+        add_executable(${tool} ${tool}.cpp)
+        target_link_libraries(${tool} sartre)
+        add_dependencies(${tool} sartre)
+    endforeach()
+endif()
 
 #
 #  Install library and include files (make install) within
@@ -276,4 +306,6 @@ file(GLOB AllIncludeFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 install(FILES ${AllIncludeFiles} DESTINATION sartre/include)
 install(FILES "${PROJECT_BINARY_DIR}/cuba/build/include/cuba.h" DESTINATION sartre/include)
 
-install(TARGETS ${TABLE_TOOLS} DESTINATION sartre/bin)
+if (SARTRE_BUILD_TOOLS)
+    install(TARGETS ${TABLE_TOOLS} DESTINATION sartre/bin)
+endif()

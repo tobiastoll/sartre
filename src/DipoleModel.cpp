@@ -300,7 +300,7 @@ double DipoleModel_bSat::dsigmadb2ep(double r, double b, double xprobe)
     return result;
 }  
 
-double DipoleModel_bSat::coherentDsigmadb2(double r,  double b, double xprobe) {
+double DipoleModel_bSat::coherentDsigmadb2(double r,  double b, double /*xprobe*/) {
     if (mParameters->dipoleModelParameterSet() == STU) {
         double rm = mParameters->rMax();
         r = rm*sqrt(log(1+r*r/(rm*rm)));
@@ -621,7 +621,7 @@ DipoleModel_bCGC::DipoleModel_bCGC()
 }
 
 
-void DipoleModel_bCGC::createConfiguration(int iConfiguration)
+void DipoleModel_bCGC::createConfiguration(int /*iConfiguration*/)
 {  
     if (!mIsInitialized) {
         cout << "DipoleModel_bCGC::createConfigurationDipoleModel class has not been initialized! Stopping." << endl;
