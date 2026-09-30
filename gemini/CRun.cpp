@@ -1,4 +1,5 @@
 #include "CRun.h"
+#include <vector>  // added tu
 
 /**
  * this constructor is everything at the moment.
@@ -24,7 +25,8 @@ CRun::CRun(int iZcn, int iAcn, float fEx, float l0, float d0, int lmax, float pl
     bool residueDet;
     
     
-    float prob[lmax+1];
+    // float prob[lmax+1];  - bad
+    std::vector<float> prob(lmax+1);  // fix warning - above is not std
     float sum = 0.;
     for (int l=0;l<=lmax;l++)
     {

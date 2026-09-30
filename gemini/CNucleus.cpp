@@ -760,7 +760,7 @@ void CNucleus::massAsymmetry(bool saddleOrScission)
   iA1 = iA/2;
   float Amax = 0.;
   //float gammaAOld = 1e32;
-  double gammaTot = 0.;
+  // double gammaTot = 0.; tu
   for (;;)
     {
 
@@ -839,7 +839,7 @@ void CNucleus::massAsymmetry(bool saddleOrScission)
                jj--;
              }
 
-          gammaTot += prob;
+          // gammaTot += prob;
           Amax = max(Amax,prob);
           if (prob < Amax*0.001) break;
         }

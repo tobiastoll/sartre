@@ -1,4 +1,5 @@
 #include "CRunThick.h"
+#include <vector>  // added tu
 
 /**
  * this constructor is everything at the moment.
@@ -25,14 +26,16 @@ CRunThick::CRunThick(int iZcn, int iAcn, float fEx_min,float fEx_max,float l0_mi
     bool residueDet;
     
     
-    float ExArray[nBins];
+    // float ExArray[nBins]; - bad
+    std::vector<float> ExArray(nBins); // fix warning - above is not std
     for (int i=0;i<nBins;i++) ExArray[i] = fEx_min + (fEx_max-fEx_min)/
         ((float) nBins)*((float)i+0.5);
     
     
     
     
-    float prob[nBins][lmax+1];
+    // float prob[nBins][lmax+1];
+    std::vector<std::vector<float>> prob(nBins, std::vector<float>(lmax + 1));   // fix warning - above is not std
     for (int i=0;i<nBins;i++)
     {
         float l0 = l0_min + (l0_max-l0_min)/((float)nBins)*((float)i+0.5);

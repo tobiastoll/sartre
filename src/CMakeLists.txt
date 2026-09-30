@@ -1,24 +1,17 @@
 #===============================================================================
-#  CMakeLists.txt (src)
+#  CMakeLists.txt (sartre/src)
 #
-#  Copyright (C) 2010-2024 Tobias Toll and Thomas Ullrich
+#  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
 #
 #  This file is part of Sartre.
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation.
-#  This program is distributed in the hope that it will be useful,
-#  but without any warranty; without even the implied warranty of
-#  merchantability or fitness for a particular purpose. See the
-#  GNU General Public License for more details.
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  the Free Software Foundation. See <http://www.gnu.org/licenses/>.
 #
-#  Author: Thomas Ullrich
-#  Last update:
-#  $Date: 2025-10-16 22:29:28 +0530 (Thu, 16 Oct 2025) $
+#  $Date: 2026-09-18 13:43:42 -0400 (Fri, 18 Sep 2026) $
 #  $Author: ullrich $
+#===============================================================================
 #
 #  Modernized:
 #   - cmake_minimum_required / CXX standard / CMAKE_MODULE_PATH now come from

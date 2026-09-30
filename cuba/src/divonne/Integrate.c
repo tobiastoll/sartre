@@ -5,7 +5,7 @@
 		then do a main integration over all regions
 		this file is part of Divonne
 		checkpointing by B. Chokoufe
-		last modified 13 Mar 15 th
+		last modified 25 Nov 20 th
 */
 
 
@@ -232,7 +232,7 @@ if( StateWriteTest(t) ) { \
     tot->maxerrsq = Sq(maxerr);
     tot->mindevsq = tot->maxerrsq*Sq(t->mindeviation);
   }
-  nwant = (number)Min(ceil(nneed), NWANTMAX/40.);
+  nwant = (number)Min(ceil(nneed), (double)NWANTMAX/40.);
 
   err = SamplesLookup(t, &t->samples[1], t->key2, nwant,
     (t->maxeval - t->neval)/t->nregions + 1, t->samples[0].n + 1);
@@ -310,7 +310,7 @@ refine:
                 Iterate(t, state->iregion, POSTDEPTH, 1, state->totals);
 
                 if( can_adjust ) {
-                  cnumber nnew = (tot->spreadsq/Sq(NWANTMAX) > tot->maxerrsq) ?
+                  cnumber nnew = (tot->spreadsq/Sq((double)NWANTMAX) > tot->maxerrsq) ?
                     NWANTMAX :
                     (number)ceil(sqrtx(tot->spreadsq/tot->maxerrsq));
                   if( nnew > nwant + nwant/64 ) {
@@ -369,7 +369,7 @@ refine:
       if( VERBOSE > 2 ) {
         cchar *msg = "\nRegion (" REALF ") - (" REALF ")";
         for( B = (b = region->bounds) + t->ndim; b < B; ++b ) {
-          oe += sprintf(oe, msg, b->lower, b->upper);
+          oe += sprintf(oe, msg, SHOW(b->lower), SHOW(b->upper));
           msg = "\n       (" REALF ") - (" REALF ")";
         }
       }

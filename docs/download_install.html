@@ -2,151 +2,142 @@
  //==============================================================================
  //  download_install.html
  //
- //  Copyright (C) 2010-2018 Tobias Toll and Thomas Ullrich 
+ //  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
  //
- //  This file is part of Sartre version: 1.1
+ //  This file is part of the Sartre event generator.
  //
- //  This program is free software: you can redistribute it and/or modify 
- //  it under the terms of the GNU General Public License as published by 
- //  the Free Software Foundation.   
- //  This program is distributed in the hope that it will be useful, 
- //  but without any warranty; without even the implied warranty of 
- //  merchantability or fitness for a particular purpose. See the 
- //  GNU General Public License for more details. 
- //  You should have received a copy of the GNU General Public License
- //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //  This program is free software: you can redistribute it and/or modify
+ //  it under the terms of the GNU General Public License as published by
+ //  the Free Software Foundation. See <http://www.gnu.org/licenses/>.
  //
- //  Author: Thomas Ullrich
- //  Last update: 
- //  $Date: 2019-03-08 20:13:53 +0100 (Fri, 08 Mar 2019) $
+ //  $Date: 2026-09-18 13:33:37 -0400 (Fri, 18 Sep 2026) $
  //  $Author: ullrich $
  //==============================================================================
  -->
-<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ //==============================================================================
+ //  download_install.html
+ //
+ //  Sartre 2 documentation
+ //==============================================================================
+-->
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
-    <head>
-        <title>Sartre - Download &amp; Installation</title>
-        <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
-                <td width="10">&nbsp;&nbsp;</td>
-                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
-                <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot;<font color="#004faf"> <a href="usersGuide.html">Users
-                Guide</a></font>&nbsp;&middot; 
-            <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
-        </table>
-        
-        <h1 class="title">Download</h1>
-    <p>The latest version of Sar<em>t</em>re  can be obtained from
-        the <a href="https://sartre.hepforge.org">project web site</a> (hepforge) via svn. The latest version is not always guaranteed to be stable. Safer is it to download one of the tar balls for tagged versions. The tar ball contains all necessary source
-         code, lookup tables, and the full documenation (html).</p>
-<h1 class="title">Building Sar<em>t</em>re</h1>
-    <h2>Supported platforms</h2>
-    <p>Although Sar<em>t</em>re is written in ISO C++ and we made sure to adhere
-        to strict standards in our code we can only guarantee that it runs on
-        the two platforms we tested it on, namely Mac OS and
-        Linux (Red Hat) systems. </p>
-    <h2>Unpacking the downloaded tar ball</h2>
-<pre class="code">
-tar -xzvf sartre-&lt;version&gt;.tgz
-</pre>
-<p>This will create a directory <code>sartre </code>with several
-    subdirectories containing source code, include files, tables, as well as
-    directories
-    for (provided) external programs such as Cuba and Gemini++ that are required
-    to build Sar<em>t</em>re.</p>
-<h2>Required additional packages</h2>
-       <p>Sar<em>t</em>re requires two additional packages to be installed: <a href="http://root.cern.ch">ROOT</a> and
-           the <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a> (GSL).
-           If not already on your system please install them before you continue.
-           
-Note that ROOT must contain  the <em>Unuran</em> and <em>MathMore</em> components.
-           The binary distributions available on the ROOT <a href="http://root.cern.ch">web
-           site</a> contain them
-           already. If you install ROOT yourself make sure you select them during
-           configuration. In case you want to generate tables for specific
-models and nuclei not already contained in the latest Sar<em>t</em>re distribution <strong>and</strong> you
-want to do so in multithreaded mode (see below) you will need the <a href="http://www.boost.org">Boost</a> library.
-For most users this is in general not needed nor recommended.
-    <p>Sar<em>t</em>re is using <a href="http://www.cmake.org">Cmake</a> for
-        building and installation. If this package is not present please <a href="http://www.cmake.org/cmake/resources/software.html">install</a> it before continuing.    
-    <h2>Building and  installing 
-        Sar<em>t</em>re
-    </h2>
-    <p>Cmake will lookup the locations of the required
-        libraries. If ROOT and GSL are not installed in standard locations it
-        is recommended to ensure that the following environment variables are
-        defined. This helps cmake
-        to locate the required libraries and include files:</p>
-    <pre class="code">
-# example using bash 
-export ROOTSYS=/usr/local/root         # must contain lib/ include/ bin/
-export GSL_DIR=/usr/local/bin          # must contain gsl-config
-# use only when creating tables in multithreaded mode: export Boost_Dir=...</pre>
+  <head>
+    <title>Sartre 2 - Download and Installation</title>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <link href="sartre.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <!-- Standard documentation navigation. -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr>
+        <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="Sartre" border="0" align="right" /></td>
+        <td width="10">&#xA0;&#xA0;</td>
+        <td align="left" valign="middle" class="postheader">
+          <a href="index.html"><font color="#004faf">Home</font></a>&#xA0;&#xB7;
+          <a href="overview.html"><font color="#004faf">Overview</font></a>&#xA0;&#xB7;
+          <a href="usersGuide.html"><font color="#004faf">User Guide</font></a>&#xA0;&#xB7;
+          <a href="referenceGuide.html"><font color="#004faf">Library Reference Guide</font></a>
+        </td>
+      </tr>
+    </table>
 
-    <p>Now building and installing Sar<em>t</em>re is easy. We strongly recommend an out-of-source build.</p>
-    <pre class="code">
-cd sartre-&lt;version&gt;
-mkdir build
-cd build
-cmake ..               # note the dot-dot &quot;..&quot;
-make
-make install  </pre>
-    <p>By default Sar<em>t</em>re is installed in /usr/local. Make sure you have
-        the appropriate privileges for installation. To chose a different 
-        directory use:</p>
-    <pre class="code">cmake -DCMAKE_INSTALL_PREFIX=&lt;mydir&gt; ..
-</pre>
-<p> This
-    will create a Makefile that is setup to install
-    Sar<em>t</em>re
-    in <code>mydir/sartre</code>.
-<p>If (and only if) you intend to create your own tables, a tremendously CPU
-    intensive task, you might want to run Sar<em>t</em>re in multithreaded mode.
-    To do so you need to pass an additional flag to cmake:
-<pre class="code">cmake -DMULTITHREADED=ON .
-</pre>
-<h2>Getting started</h2>
-<p>To get started with Sar<em>t</em>re it is strongly recommended to copy the <code>sartre/example</code> directory
-    and build upon the examples (especially <code>sartreMain.cpp</code>) in this
-    directory. The
-    folder also contains the required <code>CMakeLists.txt</code> file for cmake
-    that you can adapt for you own program.</p>
-<p>Note that in order to run Sar<em>t</em>re you need to set the environment
-    variable
-    <code>SARTRE_DIR</code> to point to the installation directory. For example:</p>
-<pre class="code">
-# example using bash 
-export SARTRE_DIR=/usr/local/sartre</pre>
-<p>Then within the example directory:</p>
-<pre class="code">
-cmake .
-make</pre>
+    <h1 class="title">Download and Installation</h1>
 
-<p>Will make all examples. You can also make them individually, for example <code>make
-    sartreMain</code>. In case you create you own Sartre project it is recommended
-    to use the <code>CMakeLists.txt</code> file and the <code>cmake/</code> directory
-    plus content contained
-    in the <code>examples/ </code>directory and modify it to your needs. Otherwise
-    you have to write you own Makefile from scratch.</p>
-<p>With that you should be set to get started. We recommend to have also a look
-    at the <a href="usersGuide.html">Users Guide</a> and for more details we refer to the <a href="referenceGuide.html">Reference
-    Guide</a>.</p>
-<address>
-<div align="center">
+    <h2>Stable Sartre 2 source</h2>
+
+    <p>The public Sartre 2 source is available from the <a href="https://github.com/tobiastoll/sartre">Sartre GitHub repository</a>. This repository contains the latest stable version only. Development is carried out elsewhere, so the GitHub repository should be treated as a stable distribution source rather than a development branch.</p>
+
+    <p>To download the source with Git, open a terminal and run:</p>
+    <pre class="code">git clone https://github.com/tobiastoll/sartre.git
+cd sartre</pre>
+
+    <p>Alternatively, use the repository's <strong>Code</strong> button on GitHub and choose <strong>Download ZIP</strong>. Unpack the archive and change into the resulting <code>sartre</code> directory before continuing.</p>
+
+    <h2>Requirements</h2>
+
+    <p>Sartre is developed and tested on macOS and Linux. A C++17 compiler and CMake 3.30 or newer are required. The core library also requires:</p>
+    <ul>
+      <li><a href="https://root.cern/">ROOT</a>, including the MathMore and Unuran components;</li>
+      <li>the <a href="https://www.gnu.org/software/gsl/">GNU Scientific Library (GSL)</a>.</li>
+    </ul>
+
+    <p>Inclusive-diffraction event generation is enabled by default in Sartre 2 and additionally requires <a href="https://pythia.org/">Pythia 8</a>. If only the exclusive library is needed and Pythia 8 is unavailable, inclusive diffraction can be disabled at CMake configuration time. Boost is needed only for the optional multithreaded build.</p>
+
+    <h2>Configure, build, and install</h2>
+
+    <p>Use an out-of-source build. From the top-level Sartre source directory:</p>
+    <pre class="code">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+cmake --install build</pre>
+
+    <p>By default, installation is under <code>/usr/local/sartre</code>. Select another prefix when configuring the build if needed:</p>
+    <pre class="code">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/path/to/install</pre>
+
+    <p>If CMake cannot find ROOT, GSL, or Pythia 8, configure their normal installation prefixes or environment setup before running CMake. The exact variables depend on how those packages were installed. Read CMake's configuration messages carefully; do not continue to the build step if a required dependency was not found.</p>
+
+    <h3>Exclusive-only build</h3>
+
+    <p>To build without the inclusive-diffraction event-generation components and therefore without Pythia 8:</p>
+    <pre class="code">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DENABLE_INCLUSIVE_DIFFRACTION=OFF
+cmake --build build
+cmake --install build</pre>
+
+    <h3>Optional multithreaded build</h3>
+
+    <p>Table generation can use the optional multithreaded build. This requires Boost and should be enabled only when needed:</p>
+    <pre class="code">cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DMULTITHREADED=ON</pre>
+
+    <h2>Build the example programs</h2>
+
+    <p>Set <code>SARTRE_DIR</code> to the installed Sartre directory, then configure the supplied examples in a separate build directory. For an installation at the default prefix:</p>
+    <pre class="code">export SARTRE_DIR=/usr/local/sartre
+cmake -S "$SARTRE_DIR/examples" -B build_examples
+cmake --build build_examples</pre>
+
+    <p>The examples include <code>sartreMain</code> for exclusive diffraction and UPC, and <code>sartreInclusiveDiffractionMain</code> for inclusive diffraction. The latter requires that the library was installed with <code>ENABLE_INCLUSIVE_DIFFRACTION=ON</code>, which is the default.</p>
+
+    <h2>Installing tables</h2>
+
+    <p>Sartre event generation requires precomputed ROOT tables. They are large and are distributed separately from the source repository through the <a href="https://rhig.physics.yale.edu/~ullrich/sartre-tables/">Sartre table server</a>. A source checkout or installation therefore does not necessarily contain the table set required for a particular calculation.</p>
+
+    <p>The installed <code>getSartreTables.py</code> utility downloads a published table bundle and unpacks it into the correct directory below the installation's <code>tables/</code> directory. Always run the copy installed in Sartre's <code>bin/</code> directory; do not copy the script to another location. It discovers the Sartre installation from its installed path, so it also works when <code>sudo</code> removes <code>SARTRE_DIR</code> from the environment. List the catalog with:</p>
+
+    <pre class="code">$SARTRE_DIR/bin/getSartreTables.py list</pre>
+
+    <p>Select a table set with its collision system, dipole model, particle or process, and parameter set. Selection is case-insensitive. The catalog can be listed without administrator permission, but a system-wide installation normally requires <code>sudo</code> to install files. For example, to install exclusive &#x3C6;-meson tables for electron&#x2013;lead collisions with the bSat model:</p>
+
+    <pre class="code">sudo $SARTRE_DIR/bin/getSartreTables.py \
+  --sys=ePb --sat=bSat --part=phi --set=KMW</pre>
+
+    <p>The default selection is a non-UPC table set. Add <code>--upc</code> to request a UPC set. Use <code>--part=X</code> for inclusive-diffraction tables, for example:</p>
+
+    <pre class="code">sudo $SARTRE_DIR/bin/getSartreTables.py \
+  --sys=ePb --sat=bSat --part=X --set=KMW</pre>
+
+    <p>An explicitly set <code>SARTRE_DIR</code> overrides automatic discovery and is intended only for a deliberate installation override or development use. If no matching bundle is published, the utility stops without changing the installation and recommends <code>getSartreTables.py list</code>. It also refuses to overwrite existing table files. Use <code>--help</code> (or <code>-?</code>) for the complete command reference. The resulting hierarchy must be preserved; see <a href="tableTools.html">Tables and Table Tools</a> for the directory layout and table-inspection guidance.</p>
+
+    <h2>Next steps</h2>
+
+    <p>Begin with the example program matching the desired process and adapt its runcard and output handling. See the <a href="overview.html">Overview</a> for the distinction between exclusive and inclusive workflows, and the <a href="referenceGuide.html">Library Reference Guide</a> for the API.</p>
+
+    <address>
+      <div align="center">
         <table border="0" cellspacing="0" width="100%">
-        <tbody><tr class="address">
-                <td align="left" width="40%">&nbsp;</td>
-                <td align="center" width="20%">&nbsp;</td>
-                <td align="right" width="40%"><div align="right"><br>Last Update:
-                    <!-- #BeginDate format:Am1 -->October 9, 2018<!-- #EndDate -->
-                </div></td>
-</tr></tbody></table></div></address>
-
-</body></html>
+          <tbody>
+            <tr class="address">
+              <td align="left" width="40%">&#xA0;</td>
+              <td align="center" width="20%">&#xA0;</td>
+              <td align="right" width="40%"><div align="right"><br />Last Update: September 17, 2026</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </address>
+  </body>
+</html>

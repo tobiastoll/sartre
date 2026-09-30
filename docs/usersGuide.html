@@ -1,33 +1,25 @@
+
 <!--
  //==============================================================================
  //  usersGuide.html
  //
- //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
  //
- //  This file is part of Sartre version: 1.1 
+ //  This file is part of the Sartre event generator.
  //
- //  This program is free software: you can redistribute it and/or modify 
- //  it under the terms of the GNU General Public License as published by 
- //  the Free Software Foundation.   
- //  This program is distributed in the hope that it will be useful, 
- //  but without any warranty; without even the implied warranty of 
- //  merchantability or fitness for a particular purpose. See the 
- //  GNU General Public License for more details. 
- //  You should have received a copy of the GNU General Public License
- //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //  This program is free software: you can redistribute it and/or modify
+ //  it under the terms of the GNU General Public License as published by
+ //  the Free Software Foundation. See <http://www.gnu.org/licenses/>.
  //
- //  Author: Thomas Ullrich
- //  Last update: 
- //  $Date: 2013-05-29 22:25:21 +0200 (Wed, 29 May 2013) $
- //  $Author: thomas.ullrich@bnl.gov $
+ //  $Date: 2026-09-18 13:33:37 -0400 (Fri, 18 Sep 2026) $
+ //  $Author: ullrich $
  //==============================================================================
  -->
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
     <head>
-        <title>Sartre - Users Guide</title>
+        <title>Sartre - User Guide</title>
         <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />  <link href="sartre.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
@@ -37,62 +29,46 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
                 <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
                 <td width="10">&nbsp;&nbsp;</td>
                 <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
-                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot; <font color="#004faf">Users
-                        Guide</font><a href="generator.html"><font color="#004faf"></font></a>&nbsp;&middot; 
-                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot; <font color="#004faf">User
+                        Guide</font>&nbsp;&middot; 
+                    <a href="referenceGuide.html"><font color="#004faf">Library Reference Guide</font> </a></td></tr>
         </table>
         
-        <h1 class="title">Users Guide</h1>
-        <p>Sar<em>t</em>re is a class library that lets you easily assemble a program
-        that fits your needs. Typically your setup will consist of a main program
-        and a <a href="runcardRef.html">
-            runcard</a>, <em>i.e.</em>, a text file with instruction read by Sar<em>t</em>re,
-        that defines various parameters such as beam energies, what model to
-        use, what vector meson species to generate, the number of events, and
-        much more. Sar<em>t</em>re has a built-in mechanism to take care of
-        this. The main class the user has to deal with is 
-        <a href="refSartre.html">Sartre</a>.
-        Necessary subclasses can be obtained via access functions of <a href="refSartre.html">Sartre</a>.
-        The class <a href="refEventGeneratorSettings.html">EventGeneratorSettings</a> deals
-        with the setup parameters and the complete structure of the generated
-        event is returned in an instance of the <a href="refEvent.html"> Event</a> class. Sar<em>t</em>re
-        has no predefined output format. The provided example program <code>sartreMain.cpp</code> contains
-        an example on how to store the generated events in a ROOT file for later
-        processing. </p>
-        <p>In this Users Guide we discuss the general idea of Sartre, how it functions,
-        and how to use it. For detailed information
-        on classes please see the <a href="referenceGuide.html">Reference Guide</a>.</p>
-        <p>&nbsp;</p>
-        <h2>Content</h2>
-        <ol>
-            <li><a href="#TheBigPicture">The big picture</a></li>
-            <li><a href="#FinalStateParticles">Final state particles</a></li>
-            <li><a href="#ConventionsAndUnitsInSartre">Conventions and units
-                    in Sar<em>t</em>re</a></li>
-            <li><a href="#EnvironmentVariables">Environment variables</a></li>
-            <li><a href="#GettingStarted">Getting started</a></li>
-            <li><a href="#Tables">Tables</a></li>
-        </ol>
-<h2>&nbsp;</h2>
-        <h2><a name="TheBigPicture" id="TheBigPicture"></a>1. The big picture</h2>
-        <p>It is helpful to understand the basics of how Sar<em>t</em>re actually
-        works, The figure below illustrate (in a very schematic fashion) the
-    inner working of the Sar<em>t</em>re event generator. </p>
-        <p align="center"><img src="images/scheme.png" /></p>
-        <p>The user provides the energies of the incoming beams, the hadron beam
+        <h1 class="title">Sartre 2 User Guide</h1>
+        <p>Sar<em>t</em>re is a C++ class library for diffractive event generation. A typical application supplies a small main program and a <a href="runcardRef.html">runcard</a>, a text file that specifies beam energies, the target, dipole model, kinematic limits, event count, output, and related settings. The library returns each generated event as an <a href="references/refEvent.html">Event</a>; applications remain free to analyse it or write it in their own output format.</p>
+        <p>For exclusive diffraction, use <a href="references/refSartre.html">Sartre</a> and start from <code>examples/sartreMain.cpp</code>. It generates a selected vector meson or DVCS final state and illustrates ROOT output. Sartre 2 also supports inclusive diffractive DIS in <em>ep</em> and <em>eA</em>. Its <a href="references/refSartreInclusiveDiffraction.html">SartreInclusiveDiffraction</a> interface and <code>examples/sartreInclusiveDiffractionMain.cpp</code> generate a diffractive hadronic system <em>X</em>, then hadronize the generated <em>q</em><em>q</em>&#x0305; or <em>q</em><em>q</em>&#x0305;<em>g</em> state with Pythia 8. The inclusive example also writes the inclusive kinematics, partonic state, and hadronized particles to ROOT.</p>
+        <p>This guide explains the shared concepts and both workflows, with an inclusive step-by-step example in <a href="#InclusiveDiffraction">Section 6</a>. For the full API, including <a href="references/refEventGeneratorSettings.html">EventGeneratorSettings</a> and the classes obtained through the generator interfaces, see the <a href="referenceGuide.html">Library Reference Guide</a>.</p>
+        <!-- Compact navigation for this longer guide. -->
+        <div class="pageToc">
+            <h2>On this page</h2>
+            <ul>
+                <li><a href="#TheBigPicture">The big picture: exclusive and inclusive workflows</a></li>
+                <li><a href="#FinalStateParticles">Final-state particles</a></li>
+                <li><a href="#ConventionsAndUnitsInSartre">Conventions and units</a></li>
+                <li><a href="#EnvironmentVariables">Environment variables</a></li>
+                <li><a href="#GettingStarted">Getting started</a></li>
+                <li><a href="#InclusiveDiffraction">Inclusive diffraction in Sartre 2</a></li>
+                <li><a href="#Tables">Tables</a></li>
+            </ul>
+        </div>
+        <h2><a name="TheBigPicture" id="TheBigPicture"></a>1. The big picture: exclusive and inclusive workflows</h2>
+        <p>Sar<em>t</em>re provides two related event-generation workflows. Both start from a runcard, select compatible precomputed tables, construct a probability density over the requested phase space, and return a complete <a href="references/refEvent.html">Event</a> record. They differ in the observable being generated and in the final-state construction.</p>
+        <p><strong>Exclusive diffraction.</strong> The original Sar<em>t</em>re workflow generates one selected exclusive final state, such as a vector meson or DVCS. The figure below illustrates this exclusive workflow schematically.</p>
+        <p align="center"><img src="images/scheme.png" alt="Schematic Sartre exclusive-event workflow" /></p>
+        <p>The exclusive user provides the energies of the incoming beams, the hadron beam
         mass (A), sets the range in<i> t</i>,
-        <i>W<sup> </sup></i>, and <i>Q<sup>2</sup></i> he or she wants to generate,
+        <i>W</i>, and <i>Q<sup>2</sup></i> he or she wants to generate,
         defines which dipole model to use,  what vector meson to generate,
         and much more. The values are typically defined in a so called <a href="runcardRef.html">runcard</a>,
         a user provided text file, that is passed to Sartre during initialization.
         From the given parameters Sar<em>t</em>re
         first determines which amplitude (mean and variance) tables are to be
         used. Table exist for the bSat and the bNonSat models, for the three
-        vector mesons &rho;, &phi;, and J/&psi; s well as for DCVS. Sartre
+        vector mesons &rho;, &phi;, and J/&psi; as well as for DVCS. Sartre
         currently contains tables for several nuclei reaching from light to
         heavy. The beam energies, the table range and the user requested limits
-        determine the kinematic range in <i>W<sup> </sup></i>,<i>Q<sup>2</sup></i>,
-        and t. Sartre used the tables to calculate a 3-dimensional
+        determine the kinematic range in <i>W</i>, <i>Q<sup>2</sup></i>,
+        and <i>t</i>. Sartre uses the tables to calculate a 3-dimensional
         probability density function (pdf)
         that is essentially the triple differential
         cross-section <em>d<sup>3</sup>&sigma;/(dt
@@ -112,24 +88,25 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
                 and fragmentation model Gemini to do that for us. The output,
                 the event record, is available in full for the user for further
         processing.</p>
-<p><strong>Why <i>t</i>, <em>W</em>, and <i>Q<sup>2</sup></i> ?</strong> There
+        <p><strong>Inclusive diffraction in Sartre 2.</strong> The inclusive workflow is selected by constructing <a href="references/refSartreInclusiveDiffraction.html">SartreInclusiveDiffraction</a>. It uses inclusive cross-section tables and samples &#x3B2;, <em>Q</em><sup>2</sup>, <em>W</em>, and <em>z</em> instead of the exclusive (<em>t</em>, <em>W</em>, <em>Q</em><sup>2</sup>) set. The calculation contains the <em>q</em><em>q</em>&#x0305; and <em>q</em><em>q</em>&#x0305;<em>g</em> Fock states, and the resulting partonic system is hadronized by Pythia 8 into the diffractive system <em>X</em>. The event record contains the inclusive variables &#x3B2;, <em>z</em>, <em>M</em><sub>X</sub>, and <em>x</em><sub>IP</sub>, together with the outgoing particles. The detailed inclusive recipe begins in <a href="#InclusiveDiffraction">Section 6</a>.</p>
+<p><strong>Why <i>t</i>, <em>W</em>, and <i>Q<sup>2</sup></i> for exclusive diffraction?</strong> There
         are 3 independent variables needed. Since Sar<em>t</em>re deals with
         diffractive events <em>t</em> is
         a given. The other two can be any combination of <em>x, W, Q, y</em>.  <i>Q<sup>2</sup></i> seems
         rather obvious and intuitive. Since in the case of photoproduction <em>x</em> loses
         its importantance, <em>W</em> was picked as the 3rd variable. It is also
         the parameter that is easiest accessible in the experiment and it is
-        numerically somewhat easier to handle. The static <a href="refKinematics.html">class
+        numerically somewhat easier to handle. The static <a href="references/refKinematics.html">class
             Kinematics</a>
     provides tools that let you easily (and correctly) transform one into
-    the other if needed. The generated event records contains them all. Sar<em>t</em>re
+    the other if needed. The generated exclusive event records contain them all. Inclusive diffraction instead requires the additional variables &#x3B2; and <em>z</em>, as described above and in Section 6. Sar<em>t</em>re
 </p>
         <h2><a name="FinalStateParticles" id="FinalStateParticles"></a>2. Final state particles</h2>
         <p>The final state particles are the scattered electron, the scattered
             proton/nucleus, and the created vector meson. For incoherent events
             the fragments of the broken nucleus are also provided. The vector
             mesons are not decayed in Sar<em>t</em>re.
-        This can be easily done at a later stage, e.g. in Geant. The <a href="refEvent.html">Event</a> class
+        This can be easily done at a later stage, e.g. in Geant. The <a href="references/refEvent.html">Event</a> class
         that contains the event record also holds information on the virtual
     photon.    </p>
         <h2><a name="ConventionsAndUnitsInSartre" id="ConventionsAndUnitsInSartre"></a>3.
@@ -152,14 +129,14 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
     <h2><a name="GettingStarted" id="GettingStarted"></a>5. Getting Started</h2>
     <p>Most programs have a similar structure:</p>
         <ol>
-            <li>Create an instance of <a href="refSartre.html">Sartre</a></li>
+            <li>Create an instance of <a href="references/refSartre.html">Sartre</a></li>
             <li>Pass setup parameters to the created object</li>
             <li>Initialize</li>
             <li>Loop and generate events</li>
         </ol>
-        <p>Typically you only need one instance of <a href="refSartre.html">Sartre</a> that
+        <p>Typically you only need one instance of <a href="references/refSartre.html">Sartre</a> that
             you can initialize multiple times if needed. There are two ways of
-            passing the setup parameters to <a href="refSartre.html">Sartre</a>:
+            passing the setup parameters to <a href="references/refSartre.html">Sartre</a>:
             (i) using a runcard or (ii) programmatically. The advantage of a
             runcard is that you can change the setup without re-compiling the
             program; it also makes batch processing easier. Here's the example
@@ -178,8 +155,8 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <p>For details on runcard syntax and available commands see the <a href="runcardRef.html">
         runcard reference.</a> To setup the run programmatically you need to
         define every parameter through an
-    instance of <a href="refEventGeneratorSettings.html">EventGeneratorSettings</a> that
-    can be obtained from the instance of <a href="refSartre.html">Sartre</a>
+    instance of <a href="references/refEventGeneratorSettings.html">EventGeneratorSettings</a> that
+    can be obtained from the instance of <a href="references/refSartre.html">Sartre</a>
     as shown here:</p>
     <pre class="code">1  #include &quot;Sartre.h&quot;
 2  #include &quot;EventGeneratorSettings.h&quot;         
@@ -201,11 +178,11 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 27     return 0;
 28 }</pre>
 
-        <p>Note that you have to setup <a href="refSartre.html">Sartre</a> before calling <code>init()</code>. For
+        <p>Note that you have to setup <a href="references/refSartre.html">Sartre</a> before calling <code>init()</code>. For
         several parameters, changes afterwards have no effect. Some, however, you
-        can change throughout the rest of the program. See <a href="refEventGeneratorSettings.html">EventGeneratorSettings </a> reference
+        can change throughout the rest of the program. See <a href="references/refEventGeneratorSettings.html">EventGeneratorSettings </a> reference
         page for details.</p>
-        <p>Once <a href="refSartre.html">Sartre</a> is setup we are ready to generate events. This 
+        <p>Once <a href="references/refSartre.html">Sartre</a> is setup we are ready to generate events. This 
         typically looks like this:</p>
         <pre class="code">1    unsigned long maxEvents = settings-&gt;numberOfEvents();   <br />2   <br />3    for (unsigned long iEvent = 0; iEvent &lt; maxEvents; iEvent++) {   <br />4        
 5        //  Generate one event   <br />6        Event *event = sartre.generateEvent();   <br />7        
@@ -215,11 +192,11 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
         from the setting parameter (line 1). If you use a runcard the referring variable
         would be <code>numberOfEvents</code>. You are of course free to use any number
         you want but it is a good habit to do as shown in the example since then
-        the number of events can then be controlled through a runcard. <a href="refSartre.html#generateEvent">Sartre::generateEvent() </a>generates
+        the number of events can then be controlled through a runcard. <a href="references/refSartre.html#m4">Sartre::generateEvent() </a>generates
         a full event and returns a pointer to the object that holds the event (line
         6).</p>
-        <p>The <a href="refEvent.html">Event</a> class contains the complete event structure. In the above
-        example (line 9) we use <a href="refEvent.html#list">Event::list()</a> to show the complete event record for
+        <p>The <a href="references/refEvent.html">Event</a> class contains the complete event structure. In the above
+        example (line 9) we use <a href="references/refEvent.html#list">Event::list()</a> to show the complete event record for
         the first 4 events. Here is an example of how such a print-out looks like: </p>
         <pre class="code">
 evt = 1           Q2 = 0.209         x = 1.259e-04
@@ -237,12 +214,86 @@ evt = 1           Q2 = 0.209         x = 1.259e-04
    6  1000791970   Au(197)         1    1     5      -     -      0.099    0.011   99.406   99.411       0.938 </pre>
         <p>The print-out starts with a block of general event properties, where <code>pol</code> is
         the polarization of the virtual photon and <code>diff</code> indicates
-        if the event was coherent or incoherent. <a href="refSartre.html">Sartre</a> follows
+        if the event was coherent or incoherent. <a href="references/refSartre.html">Sartre</a> follows
         the PDG numbering scheme to identify particles. All energies are in GeV,
         all momenta in GeV/<em>c</em>, and masses in GeV/c<sup>2</sup>.</p>
-        <p>For a detail description of the event record we refer to the <a href="eventRecord.html">Event
-            Record</a> documentation.</p>
-    <h2><a name="Tables" id="Tables"></a>6. Tables</h2>
+        <p>For a detailed description of the event record, see the <a href="references/refEvent.html">Event
+            reference</a> documentation.</p>
+    <!-- Sartre 2 inclusive-diffraction workflow.  The exclusive material above
+         is retained as the historical and still-supported workflow. -->
+    <h2><a name="InclusiveDiffraction" id="InclusiveDiffraction"></a>6. Inclusive diffraction in Sartre 2</h2>
+    <p>In exclusive diffraction, Sartre generates one specified final state, such as a J/&#x3C8;, &#x3C6;, &#x3C1;, or a real photon in DVCS. In inclusive diffractive DIS the final state is instead a hadronic system <em>X</em>:</p>
+    <p class="code"><em>e p/A</em> &#x2192; <em>e' p'/A' X</em>.</p>
+    <p>The inclusive calculation retains the transverse and longitudinal <em>q</em><em>q</em>&#x0305; contributions and the <em>q</em><em>q</em>&#x0305;<em>g</em> contribution. The latter is important at small &#x3B2;, where the diffractive mass is large. Sartre samples &#x3B2;, <em>Q</em><sup>2</sup>, <em>W</em>, and the quark momentum fraction <em>z</em>; the generated partonic system is passed to Pythia 8 for Lund-string fragmentation. The returned <a href="references/refEvent.html">Event</a> therefore contains the scattered lepton and target, the virtual photon, the partons used to construct <em>X</em>, and the generated Pythia particles.</p>
+
+    <h3>6.1 Choosing the inclusive interface</h3>
+    <p>Use <a href="references/refSartreInclusiveDiffraction.html">SartreInclusiveDiffraction</a>, not the exclusive <a href="references/refSartre.html">Sartre</a> class. Its <code>init()</code> method activates inclusive-diffraction mode before reading the runcard. It has the same basic lifecycle as the exclusive generator: configure, initialize, generate events, and analyse or write the returned event record.</p>
+    <pre class="code">#include &quot;SartreInclusiveDiffraction.h&quot;
+
+int main() {
+    SartreInclusiveDiffraction sartre;
+
+    if (!sartre.init(&quot;inclusive.runcard&quot;))
+        return 1;
+
+    EventGeneratorSettings* settings = sartre.runSettings();
+    settings-&gt;list();
+
+    for (unsigned long iEvent = 0;
+         iEvent &lt; settings-&gt;numberOfEvents(); ++iEvent) {
+        Event* event = sartre.generateEvent();
+        if (iEvent &lt; 5) event-&gt;list();
+
+        // Analyse event-&gt;beta, event-&gt;Q2, event-&gt;W, event-&gt;z,
+        // event-&gt;MX, event-&gt;xpom, and event-&gt;particles here.
+    }
+    return 0;
+}</pre>
+    <p>The distributed <code>examples/sartreInclusiveDiffractionMain.cpp</code> is the complete working example. It is run as <code>sartreInclusiveDiffractionMain runcard [rootfile]</code>. In addition to event generation, it demonstrates how to store inclusive kinematics and four-vectors in a ROOT <code>TTree</code>. The optional command-line ROOT filename overrides the <code>rootfile</code> setting in the runcard.</p>
+
+    <h3>6.2 Minimal inclusive runcard</h3>
+    <p>The following is a compact starting point based on <code>examples/sartreInclusiveDiffractionRuncard.txt</code>. The numerical ranges must lie within the available inclusive tables; use values appropriate to the table set that has been installed.</p>
+    <pre class="code"># Beams and target
+eBeamEnergy = 30
+hBeamEnergy = 920
+A = 1
+
+# Generation and model
+numberOfEvents = 10000
+dipoleModel = bSat
+dipoleModelParameterSet = STU
+
+# Inclusive-diffraction phase space
+betamin = 0.1
+betamax = 0.9
+Q2min = 2.
+Q2max = 201.
+Wmin = 20.
+Wmax = 240.
+zmin = 0.
+zmax = 1.
+
+# Use supplied inclusive cross-section tables when available.
+useInclusiveCrossSectionTables = true
+
+# Nuclear breakup is optional for a nuclear target.
+enableNuclearBreakup = false
+rootfile = inclusive.root</pre>
+    <p>The standard beam, target, event-count, model, seed, verbosity, and ROOT-output settings have the same meanings as for exclusive generation. The inclusive-specific limits are <code>betamin</code>, <code>betamax</code>, <code>zmin</code>, and <code>zmax</code>. The complete and authoritative setting list, including defaults, is in the <a href="runcardRef.html">runcard reference</a>. Do not set <code>inclusiveDiffractionMode</code> by hand for this normal workflow: <code>SartreInclusiveDiffraction</code> selects it during initialization.</p>
+
+    <h3>6.3 Inclusive tables and cross sections</h3>
+    <p>Inclusive generation needs cross-section tables in addition to the dipole-amplitude input. They represent the required cross sections over &#x3B2;, <em>Q</em><sup>2</sup>, <em>W</em><sup>2</sup>, and <em>z</em> and make event generation practical. With <code>useInclusiveCrossSectionTables = true</code>, Sartre reads compatible supplied tables. With it set to <code>false</code>, Sartre evaluates the cross sections directly; this is useful for specialist checks but can be substantially slower.</p>
+    <p>Inclusive tables use <code>X</code>, rather than a vector-meson PDG identifier, in the final component of the table hierarchy:</p>
+    <pre class="code">$SARTRE_DIR/tables/&lt;A&gt;/&lt;bSat|bNonSat&gt;/X/</pre>
+    <p>For example, a proton bSat inclusive set is stored below <code>$SARTRE_DIR/tables/1/bSat/X/</code>. Table production is an expert task; use supplied tables whenever possible. The <a href="tableTools.html">table tools guide</a> describes the hierarchy, distribution, and inspection tools, while <code>examples/tableGeneratorInclusiveDiffractionMain.cpp</code> and its companion runcard document the generator used by table experts.</p>
+
+    <h3>6.4 Reading an inclusive event</h3>
+    <p>The usual inclusive observables are available as members of <a href="references/refEvent.html">Event</a>: <code>beta</code>, <code>Q2</code>, <code>W</code>, <code>x</code>, <code>y</code>, <code>z</code>, <code>MX</code>, and <code>xpom</code>. The particle record holds the beam particles, scattered lepton, virtual photon, recoiling target, the generated partons, and the particles returned by Pythia. The Pythia-produced particles are especially relevant for detector-level studies of the diffractive system <em>X</em>; their status and parent/daughter information are documented in the <a href="references/refParticle.html">Particle reference</a>.</p>
+    <p>Inclusive events are currently generated as coherent diffraction. When a nuclear target is used, optional nuclear-breakup handling is configured in the same way as for the exclusive workflow. See <a href="finalState.html">Final-state construction</a> for the exclusive kinematics and the inclusive Pythia-fragmentation stage, and <a href="epeAMode.html">ep and eA mode</a> for the target-specific physics conventions.</p>
+
+    <h2><a name="Tables" id="Tables"></a>7. Tables</h2>
+    <p>Sartre 2 uses tables for both exclusive and inclusive calculations. The current table hierarchy is <code>$SARTRE_DIR/tables/&lt;A&gt;/&lt;bSat|bNonSat&gt;/&lt;particle-ID|X&gt;/</code>, where the particle ID identifies an exclusive vector meson or DVCS and <code>X</code> identifies inclusive diffraction. Table sets can be large and must match the selected target, dipole model, parameter set, and process. Obtain compatible supplied tables as described in <a href="tableTools.html">Table Tools and Tables</a>; use <code>tableInspector</code> to inspect their coverage before running a production job.</p>
+    <p><strong>Historical Sartre 1 table inventory.</strong> The detailed availability lists below are retained from the original User Guide because they document the earlier exclusive table distribution. They are not a catalogue of the tables currently installed or available for Sartre 2. In particular, inclusive tables are stored under <code>X</code> and are not represented in these lists.</p>
     <p>The Sar<em>t</em>re event generator requires a set of lookup tables in
         order to work. These tables are kept in the <code>$SARTRE_DIR/tables</code> directory,
         where <code>$SARTRE_DIR</code> is
@@ -367,13 +418,13 @@ evt = 1           Q2 = 0.209         x = 1.259e-04
 <p>&nbsp;</p>
 
         
-<address><div align="center">
+<div class="address"><div align="center">
             <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
                 <td align="left" width="40%">&nbsp;</td>
                 <td align="center" width="20%">&nbsp;</td>
-                <td align="right" width="40%"><div align="right"><br>Last Update:
-                    <!-- #BeginDate format:Am1 -->May 29, 2013<!-- #EndDate -->
+                <td align="right" width="40%"><div align="right"><br />Last Update:
+                    <!-- #BeginDate format:Am1 -->September 14, 2026<!-- #EndDate -->
                 </div></td>
-    </tr></tbody></table></div></address>
+    </tr></tbody></table></div></div>
         
     </body></html>

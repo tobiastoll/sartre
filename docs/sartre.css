@@ -1,22 +1,16 @@
  /*=============================================================================*/
  /*  sartre.css                                                                 */
  /*                                                                             */
- /*  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich                     */
+ /*  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich                     */
  /*                                                                             */
- /*  This file is part of Sartre version: 1.00                                  */
+ /*  This file is part of the Sartre event generator.                           */
  /*                                                                             */
  /*  This program is free software: you can redistribute it and/or modify       */
  /*  it under the terms of the GNU General Public License as published by       */
- /*  the Free Software Foundation.                                              */
- /*  This program is distributed in the hope that it will be useful,            */
- /*  but without any warranty; without even the implied warranty of             */
- /*  merchantability or fitness for a particular purpose. See the               */
- /*  GNU General Public License for more details.                               */
- /*  You should have received a copy of the GNU General Public License          */
- /*  along with this program.  If not, see <http://www.gnu.org/licenses/>.      */     
+ /*  the Free Software Foundation. See <http://www.gnu.org/licenses/>.          */
  /*                                                                             */
- /*  Author: Thomas Ullrich                                                     */
- /*  Last update: Jan 9, 2013                                                   */
+ /*  $Date: 2026-09-18 13:44:24 -0400 (Fri, 18 Sep 2026) $                      */
+ /*  $Author: ullrich $                                                         */
  /*=============================================================================*/
 BODY,H1,H2,H3,H4,H5,H6,P,CENTER,TD,TH,UL,DL,DIV {
     font-family: Arial, Geneva, Helvetica, sans-serif;
@@ -257,6 +251,39 @@ span.string,span.char
 .title
 {
     text-align: center
+}
+
+/* Compact navigation block used by the longer handbook pages. */
+.pageToc
+{
+    background: #f1f1f1;
+    border: 1px solid #c8c8c8;
+    margin: 1.25em auto;
+    max-width: 48em;
+    padding: 0.4em 1.1em 0.8em;
+}
+
+.pageToc h2
+{
+    margin-bottom: 0.35em;
+}
+
+.pageToc ul
+{
+    margin-top: 0.25em;
+}
+
+/* Sartre 2 reference-page title hierarchy. */
+.title .className
+{
+    color: #0046ad;
+}
+
+.title .referenceKind
+{
+    color: #666;
+    font-size: 0.8em;
+    font-weight: normal;
 }
 
 .subtitle

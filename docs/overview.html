@@ -2,27 +2,18 @@
  //==============================================================================
  //  overview.html
  //
- //  Copyright (C) 2010-2013 Tobias Toll and Thomas Ullrich 
+ //  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
  //
- //  This file is part of Sartre version: 1.1 
+ //  This file is part of the Sartre event generator.
  //
- //  This program is free software: you can redistribute it and/or modify 
- //  it under the terms of the GNU General Public License as published by 
- //  the Free Software Foundation.   
- //  This program is distributed in the hope that it will be useful, 
- //  but without any warranty; without even the implied warranty of 
- //  merchantability or fitness for a particular purpose. See the 
- //  GNU General Public License for more details. 
- //  You should have received a copy of the GNU General Public License
- //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ //  This program is free software: you can redistribute it and/or modify
+ //  it under the terms of the GNU General Public License as published by
+ //  the Free Software Foundation. See <http://www.gnu.org/licenses/>.
  //
- //  Author: Thomas Ullrich
- //  Last update: 
- //  $Date: 2013-05-29 22:25:21 +0200 (Wed, 29 May 2013) $
- //  $Author: thomas.ullrich@bnl.gov $
+ //  $Date: 2026-09-18 13:33:37 -0400 (Fri, 18 Sep 2026) $
+ //  $Author: ullrich $
  //==============================================================================
  -->
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
@@ -35,99 +26,63 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td width="120" align="left" valign="top"><img src="images/sartreLogo.png" alt="" border="0" align="right" /></td>
-                <td width="10">&nbsp;&nbsp;</td>
-                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&nbsp;&middot; 
-                    <a href="overview.html"><font color="#004faf">Overview</font></a>&nbsp;&middot;<font color="#004faf"> <a href="usersGuide.html">Users
-                        Guide</a></font>&nbsp;&middot; 
-                    <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font> </a></td></tr>
+                <td width="10">&#xA0;&#xA0;</td>
+                <td align="left" valign="middle" class="postheader"><a href="index.html"><font color="#004faf">Home</font></a>&#xA0;&#xB7;
+                    <a href="overview.html"><font color="#004faf">Overview</font></a>&#xA0;&#xB7;
+                    <a href="usersGuide.html"><font color="#004faf">User Guide</font></a>&#xA0;&#xB7;
+                    <a href="referenceGuide.html"><font color="#004faf">Library Reference Guide</font></a></td></tr>
         </table>
         
-        <h1 class="title">Overview</h1>
-        <p>Sar<em>t</em>re  is an event generator for exclusive diffractive vector
-        meson production and DVCS in <em>ep</em> and <em>e</em>A collisions based
-        on the dipole model. It can also describe so called Ultra Peripheral Collisions (UPC)
-        at hadron-hadron colliders.
-        Sar<em>t</em>re describes the processes:<br> 
-        <em>e p </em> &rarr; <em>e' V p', <br>
-            e A </em> &rarr; <em>e' V A', <br>
-            p p </em> &rarr; <em>p' V p', <br>
-            p A </em> &rarr; <em>p' V A', <br>
-            A A </em> &rarr; <em>A' V A', </em> <br> 
-            where V = J/&psi;, &phi;,&rho;, &gamma;. Most common nuclei
-        are included. Sar<em>t</em>re 
-        is not a stand-alone program but a set of C++ classes and C functions
-        that form the API. It is up to the user to provide the main program.
-        This scheme gives the user the maximum flexibility to filter, select,
-        and store events in whatever format is most convenient for her/him.
-        However, a rather complete example main program is provided to get
-        the ball rolling. Since Sar<em>t</em>re is quite modular, certain
-        classes can be used individually for specific purposes, e.g. for
-        numeric calculations of cross-sections or to calculate the kinematics
-        of final state particles for a given set of <i>x</i>, <i>t</i>,
-        and <i>Q<sup>2</sup></i>.</p>
-        <p>The heart of Sar<em>t</em>re is an implementation of the bSat and
-        bCGC dipole models developed by H. Kowalski, L. Motyka, and G. Watt
-        [<a href="references.html#ref_kmw">1</a>, <a href="references.html#ref_wk">2</a>].
-        We extended the models to also describe <em>e</em>A collisions
-        making Sar<em>t</em>re the first
-        generator to describe this class of processes. Saturation is introduced
-        in the bSat model through an exponential term in the scattering
-        amplitude. In order to study the impact of saturation on the production
-        cross-section            we construct a non-saturated version of
-        the bSat model, bNonSat, by linearizing the dipole cross-section.</p>
-        <p>To calculate and generate the total cross-sections, rather complex
-        integrations have to be performed for each phase-space point (in <em>e</em>A
-        around 1000 4D integrals each) rendering an on-the-fly calculation while
-        generating events impractical. Therefore, we calculate the first
-        and second moments of the amplitudes, for both longitudinally and
-        transversely polarized photons separately, and store the results
-        in look-up tables. These calculations are very time consuming and were performed
-        on the US Science Grid. The tables are contained in the Sar<em>t</em>re
-        distribution. The
-        look-up tables are three dimensional in <em>Q<i><sup>2</sup></i>,
-            W<i><sup>2</sup></i>,</em> and <em>t</em>. There is a set of four look-up
-        tables for each species of produced vector meson or DVCS, and for each species
-        of colliding nucleus. Currently we provide tables based on the bSat and bNonSat
-        models. </p>
-        <p>Sar<em>t</em>re thus consist of two parts: an event generator
-        part and a table generator part. Most users will only use the former.
-        The API and example programs to generate tables are included in the
-        distribution
-        although we do not recommend to engage in this enterprise unless
-        you have massive CPU time available. The event generator part using
-        the pre-calculated tables is able to simulate millions of events in
-        a matter of minutes on a standard computer. 
-        </p>
-        <p>This is the first release of Sar<em>t</em>re and we tried hard to
-        provide sufficient documentation for the user to get started. However,
-        things evolve and many parts might not be as well documented as
-        they should be. Please feel free to contact the authors in this case.
-        We will try to continuously improve the documentation.</p>
-        <p>The best
-        way to get started is to use the provided example main program
-        (<code>sartreMain.cpp</code>) and runcard (<code>sartreRuncard.txt</code>) and have a look
-        at the 
-        <a href="usersGuide.html"><font color="#004faf">Users Guide</font></a>. Instead of starting from scratch, it is probably
-        more efficient to use the example and modify it to suit your needs.
-        For advanced users or users who want to get more out of the generator
-        than the example program provides we refer to the 
-        <a href="referenceGuide.html"><font color="#004faf">Reference Guide</font></a>
-        that explains the various classes in the API in more detail.</p>
-        <p>Sar<em>t</em>re relies heavily on components (4-vectors, numeric tools,
-        and more) of
-        existing packages such as ROOT and GSL that need to be present in
-        order build and run it. Making use of existing package reduces the
-        code to the essential parts needed and makes things easier to maintain
-        and modify. </p>
-        <p>
-        <p>&nbsp;</p>
+        <h1 class="title">Sartre 2 Overview</h1>
+
+        <p>Sar<em>t</em>re is a C++ library for modelling diffractive scattering in the dipole picture. Sartre 2 supports both exclusive and inclusive diffraction in electron&#x2013;proton (<em>ep</em>) and electron&#x2013;nucleus (<em>eA</em>) collisions. The library also retains support for exclusive ultra-peripheral collisions (UPC) at hadron colliders.</p>
+
+        <p>Its principal physics application is the study of small-<em>x</em> QCD and gluon saturation. Diffractive observables are especially sensitive to the gluon distribution, and nuclear targets enhance the relevant gluon densities. This makes diffractive <em>eA</em> scattering an important part of the Electron-Ion Collider (EIC) physics program.</p>
+
+        <h2>Physics processes</h2>
+
+        <p>Exclusive production covers vector mesons and deeply virtual Compton scattering (DVCS), including coherent and incoherent nuclear diffraction. Typical exclusive reactions are:</p>
+        <p class="code"><em>e p</em> &#x2192; <em>e' V p'</em><br />
+        <em>e A</em> &#x2192; <em>e' V A'</em><br />
+        <em>p p</em> &#x2192; <em>p' V p'</em><br />
+        <em>p A</em> &#x2192; <em>p' V A'</em><br />
+        <em>A A</em> &#x2192; <em>A' V A'</em></p>
+        <p>Here <em>V</em> denotes J/&#x3C8;, &#x3C6;, &#x3C1;, or a real photon for DVCS. A selection of commonly used nuclei is provided.</p>
+
+        <p>New in Sartre 2 is inclusive diffractive deep-inelastic scattering in both <em>ep</em> and <em>eA</em> collisions:</p>
+        <p class="code"><em>e p/A</em> &#x2192; <em>e' p'/A' X</em></p>
+        <p>Here <em>X</em> is a diffractive hadronic system, separated from the scattered proton or nucleus by a rapidity gap. Rather than projecting the scattered dipole onto one specified vector meson or a real photon, inclusive diffraction retains this broader final state. Its invariant mass is conventionally represented by <em>&#x3B2;</em> = <em>Q</em><sup>2</sup>/(<em>Q</em><sup>2</sup> + <em>M</em><sub>X</sub><sup>2</sup>), neglecting the small momentum transfer <em>t</em>.</p>
+        <p>The inclusive calculation includes transverse and longitudinal <em>q</em><em>q</em>&#x0305; contributions and the <em>q</em><em>q</em>&#x0305;<em>g</em> Fock state. The latter becomes essential at small <em>&#x3B2;</em>, where gluon-radiation phase space increases. Sartre subsequently hadronizes the generated partonic diffractive system, producing fully exclusive hadronic final states while retaining the inclusive character of <em>X</em>. The <code>SartreInclusiveDiffraction</code> interface provides the event-generation workflow; the inclusive cross-section and final-state-generator classes provide the underlying calculation and final-state construction.</p>
+
+        <h2>Library and examples</h2>
+
+        <p>Sar<em>t</em>re is a library rather than a stand-alone application. Applications supply a main program and use the public C++ API to configure a calculation, initialize it, generate events, calculate cross sections, and write their preferred output format. This keeps event selection, analysis, and storage under the application's control.</p>
+
+        <p>The distribution includes example programs for the two principal workflows:</p>
+        <ul>
+            <li><code>examples/sartreMain.cpp</code> for exclusive diffraction and UPC;</li>
+            <li><code>examples/sartreInclusiveDiffractionMain.cpp</code> for inclusive diffraction in <em>ep</em> and <em>eA</em>;</li>
+            <li><code>examples/tableGeneratorMain.cpp</code> and <code>examples/tableGeneratorInclusiveDiffractionMain.cpp</code> for producing the corresponding tables.</li>
+        </ul>
+
+        <h2>Models and tables</h2>
+
+        <p>The library implements the bSat, bCGC, and bNonSat dipole models. The inclusive-diffraction implementation uses the IPsat/bSat and IPNonSat/bNonSat amplitudes, allowing saturated and linearized non-saturated dynamics to be compared within one framework. For exclusive production, amplitudes and their moments are precomputed and stored in tables because evaluating the required integrations at every generated phase-space point would be impractical. The table-generation API is included for expert use; most users will work with supplied or previously generated tables.</p>
+
+        <p>The inclusive-diffraction implementation has its own cross-section and table workflow. Its examples show how to generate events or calculate distributions and reduced cross sections. The framework supports direct comparison with inclusive diffractive HERA measurements and predictions for EIC kinematics. See the <a href="references/refSartreInclusiveDiffraction.html">SartreInclusiveDiffraction reference</a> and the <a href="references/refInclusiveDiffractiveCrossSections.html">inclusive cross-section reference</a> for the API.</p>
+
+        <h2>Where to continue</h2>
+
+        <p>Start from the example that matches the desired physics process, then adapt its runcard and output handling. The <a href="usersGuide.html">User Guide</a> provides the existing workflow documentation. The <a href="referenceGuide.html">Library Reference Guide</a> describes the Sartre 2 classes, and the <a href="diagrams/c4Diagrams.html">design diagrams</a> provide a high-level view of the library and examples.</p>
+
+        <p>Sar<em>t</em>re relies on ROOT and GSL for four-vectors, numerical tools, and related infrastructure. Building and running Sartre therefore requires those dependencies, together with any optional components needed by the selected workflow.</p>
         
         <address><div align="center">
             <table border="0" cellspacing="0" width="100%"><tbody><tr class="address">
-                <td align="left" width="40%">&nbsp;</td>
-                <td align="center" width="20%">&nbsp;</td>
-                <td align="right" width="40%"><div align="right"><br>Last Update:
-                    <!-- #BeginDate format:Am1 -->January 14, 2013<!-- #EndDate -->
+                <td align="left" width="40%">&#xA0;</td>
+                <td align="center" width="20%">&#xA0;</td>
+                <td align="right" width="40%"><div align="right"><br />Last Update:
+                    <!-- #BeginDate format:Am1 -->September 11, 2026<!-- #EndDate -->
                 </div></td>
             </tr></tbody></table></div></address>
         

@@ -1,0 +1,426 @@
+.
+├── 1
+│   ├── bNonSat
+│   │   ├── 113
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-lambda_real-L-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-lambda_real-L.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-lambda_real-T-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A2-L.root
+│   │   │   └── EIC-A1-bNonSat-rho-KMW-mean_A2-T.root
+│   │   ├── 22
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A2-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A2-L.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A2-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-dvcs-KMW-mean_A2-T.root
+│   │   │   ├── EIC-A1-bSat-dvcs-KMW-lambda_real-L-C=7x45x160.root
+│   │   │   └── EIC-A1-bSat-dvcs-KMW-lambda_real-T-C=7x45x160.root
+│   │   ├── 333
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-lambda_real-L.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-mean_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-mean_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-mean_A2-L.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-mean_A2-T.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-variance_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-phi-HMPZ-variance_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-lambda_real-L.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A-L-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A-T-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-L-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-L-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-T-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-phi-KMW-mean_A2-T-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-rho-KMW-mean_A2-L-C=80x45x160.root
+│   │   │   └── EIC-A1-bNonSat-rho-KMW-mean_A2-T-C=80x45x160.root
+│   │   ├── 443
+│   │   │   ├── A1_bNonSat_443_HMPZ_lamRealT_UPC.root
+│   │   │   ├── A1_bNonSat_443_HMPZ_lamSkewT_UPC.root
+│   │   │   ├── A1_bNonSat_443_HMPZ_T_UPC.root
+│   │   │   ├── A1_bNonSat_443_HMPZ_T2_UPC.root
+│   │   │   ├── A1_bNonSat_443_HMPZ_varT_UPC.root
+│   │   │   ├── A1_bNonSat_443_STU_lambdaTReal_UPC.root
+│   │   │   ├── A1_bNonSat_443_STU_lambdaTSkew_UPC.root
+│   │   │   ├── A1_bNonSat_443_STU_T_UPC.root
+│   │   │   ├── A1_bNonSat_443_STU_T2_UPC.root
+│   │   │   ├── A1_bNonSat_443_STU_varT_UPC.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-lambda_real-L.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-mean_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-mean_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-mean_A2-L.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-mean_A2-T.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-variance_A-L.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-HMPZ-variance_A-T.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-lambda_real-L-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-lambda_real-L.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-lambda_real-T-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-lambda_real-T.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A-L-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A-T-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-L-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-L-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-L-C=newparam.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-T-C=7x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-T-C=80x45x160.root
+│   │   │   ├── EIC-A1-bNonSat-jpsi-KMW-mean_A2-T-C=newparam.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-HMPZ-lambda_real-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-HMPZ-lambda_skew-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-HMPZ-mean_A-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-HMPZ-mean_A2-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-HMPZ-variance_A-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-STU-lambda_real-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-STU-lambda_skew-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-STU-mean_A-T.root
+│   │   │   ├── UPC-A1-bNonSat-jpsi-STU-mean_A2-T.root
+│   │   │   └── UPC-A1-bNonSat-jpsi-STU-variance_A-T.root
+│   │   └── 553
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-lambda_real-T-C=newbmass.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-lambda_real-T.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-lambda_skew-T-C=newbmass.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-lambda_skew-T.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-mean_A-T-C=newbmass.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-mean_A-T.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-mean_A2-T-C=newbmass.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-mean_A2-T.root
+│   │       ├── UPC-A1-bNonSat-ups-HMPZ-variance_A-T-C=newbmass.root
+│   │       └── UPC-A1-bNonSat-ups-HMPZ-variance_A-T.root
+│   └── bSat
+│       ├── 113
+│       │   ├── EIC-A1-bSat-rho-KMW-lambda_real-L.root
+│       │   ├── EIC-A1-bSat-rho-KMW-lambda_real-T.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A-L.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A-T.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A2-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-rho-KMW-mean_A2-T-C=80x45x160.root
+│       │   └── EIC-A1-bSat-rho-KMW-mean_A2-T.root
+│       ├── 22
+│       │   ├── EIC-A1-bSat-dvcs-KMW-lambda_real-T.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A-L.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A-T.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A2-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-dvcs-KMW-mean_A2-T-C=80x45x160.root
+│       │   └── EIC-A1-bSat-dvcs-KMW-mean_A2-T.root
+│       ├── 333
+│       │   ├── EIC-A1-bSat-phi-HMPZ-lambda_real-L.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-lambda_real-T.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-mean_A-L.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-mean_A-T.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-mean_A2-T.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-variance_A-L.root
+│       │   ├── EIC-A1-bSat-phi-HMPZ-variance_A-T.root
+│       │   ├── EIC-A1-bSat-phi-KMW-lambda_real-L-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-lambda_real-L.root
+│       │   ├── EIC-A1-bSat-phi-KMW-lambda_real-T-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-lambda_real-T.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A-L.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A-T.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-L-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-T-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-phi-KMW-mean_A2-T.root
+│       │   ├── EIC-A1-bSat-rho-KMW-lambda_real-L-C=7x45x160.root
+│       │   └── EIC-A1-bSat-rho-KMW-lambda_real-T-C=7x45x160.root
+│       ├── 443
+│       │   ├── A1_bSat_443_HMPZ_lambdaRealT_UPC_paramsIandII.root
+│       │   ├── A1_bSat_443_HMPZ_lambdaSkewT_UPC_paramsIandII.root
+│       │   ├── A1_bSat_443_HMPZ_T_UPC_paramsIandII.root
+│       │   ├── A1_bSat_443_HMPZ_T2_UPC_paramsIandII.root
+│       │   ├── A1_bSat_443_HMPZ_varT_UPC_paramsIandII.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-lambda_real-L.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-lambda_real-T.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-mean_A-L.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-mean_A-T.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-mean_A2-T.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-variance_A-L.root
+│       │   ├── EIC-A1-bSat-jpsi-HMPZ-variance_A-T.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-lambda_real-L-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-lambda_real-T-C=7x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A-L.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A-T.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-L-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-L-C=region1-80x4x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-L.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-T-C=80x45x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-T-C=region1-80x4x160.root
+│       │   ├── EIC-A1-bSat-jpsi-KMW-mean_A2-T.root
+│       │   ├── EIC-A197-bSat-jpsi-KMW-lambda_real-L.root
+│       │   ├── EIC-A197-bSat-jpsi-KMW-lambda_real-T.root
+│       │   ├── UPC-A1-bSat-jpsi-HMPZ-lambda_real-T.root
+│       │   ├── UPC-A1-bSat-jpsi-HMPZ-lambda_skew-T.root
+│       │   ├── UPC-A1-bSat-jpsi-HMPZ-mean_A-T.root
+│       │   ├── UPC-A1-bSat-jpsi-HMPZ-mean_A2-T.root
+│       │   ├── UPC-A1-bSat-jpsi-HMPZ-variance_A-T.root
+│       │   ├── UPC-A1-bSat-jpsi-STU-lambda_real-T.root
+│       │   ├── UPC-A1-bSat-jpsi-STU-lambda_skew-T.root
+│       │   ├── UPC-A1-bSat-jpsi-STU-mean_A-T.root
+│       │   ├── UPC-A1-bSat-jpsi-STU-mean_A2-T.root
+│       │   └── UPC-A1-bSat-jpsi-STU-variance_A-T.root
+│       └── 553
+│           ├── UPC-A1-bSat-ups-HMPZ-lambda_real-T-C=newbmass.root
+│           ├── UPC-A1-bSat-ups-HMPZ-lambda_real-T.root
+│           ├── UPC-A1-bSat-ups-HMPZ-lambda_skew-T-C=newbmass.root
+│           ├── UPC-A1-bSat-ups-HMPZ-lambda_skew-T.root
+│           ├── UPC-A1-bSat-ups-HMPZ-mean_A-T-C=newbmass.root
+│           ├── UPC-A1-bSat-ups-HMPZ-mean_A-T.root
+│           ├── UPC-A1-bSat-ups-HMPZ-mean_A2-T-C=newbmass.root
+│           ├── UPC-A1-bSat-ups-HMPZ-mean_A2-T.root
+│           ├── UPC-A1-bSat-ups-HMPZ-variance_A-T-C=newbmass.root
+│           └── UPC-A1-bSat-ups-HMPZ-variance_A-T.root
+├── 197
+│   ├── bNonSat
+│   │   ├── 113
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A-L-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A-L-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A-T-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A-T-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A2-L-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A2-L-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-rho-KMW-mean_A2-T-C=region1.root
+│   │   │   └── EIC-A197-bNonSat-rho-KMW-mean_A2-T-C=region2.root
+│   │   ├── 22
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A-L-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A-L-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A-T-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A-T-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A2-L-C=region1.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A2-L-C=region2.root
+│   │   │   ├── EIC-A197-bNonSat-dvcs-KMW-mean_A2-T-C=region1.root
+│   │   │   └── EIC-A197-bNonSat-dvcs-KMW-mean_A2-T-C=region2.root
+│   │   ├── 333
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A-L-C=region1-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A-L-C=region2-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A-T-C=region1-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A-T-C=region2-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A2-L-C=region1-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A2-L-C=region2-newparam.root
+│   │   │   ├── EIC-A197-bNonSat-phi-KMW-mean_A2-T-C=region1-newparam.root
+│   │   │   └── EIC-A197-bNonSat-phi-KMW-mean_A2-T-C=region2-newparam.root
+│   │   └── 443
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A-L-C=region1-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A-L-C=region2-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A-T-C=region1-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A-T-C=region2-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A2-L-C=region1-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A2-L-C=region2-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A2-T-C=region1-newparam.root
+│   │       ├── EIC-A197-bNonSat-jpsi-KMW-mean_A2-T-C=region2-newparam.root
+│   │       ├── UPC-A197-bNonSat-jpsi-HMPZ-mean_A-T-C=region1.root
+│   │       ├── UPC-A197-bNonSat-jpsi-HMPZ-mean_A-T-C=region2.root
+│   │       ├── UPC-A197-bNonSat-jpsi-HMPZ-mean_A2-T-C=region1.root
+│   │       ├── UPC-A197-bNonSat-jpsi-HMPZ-mean_A2-T-C=region2.root
+│   │       ├── UPC-A197-bNonSat-jpsi-HMPZ-variance_A-T-C=region1.root
+│   │       └── UPC-A197-bNonSat-jpsi-HMPZ-variance_A-T-C=region2.root
+│   └── bSat
+│       ├── 113
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A-L-C=region1-20x55x10.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A-L-C=region2-20x55x160.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A-T-C=region1-20x55x10.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A-T-C=region2-20x55x160.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A2-L-C=region1-20x55x10.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A2-L-C=region2-20x55x20.root
+│       │   ├── EIC-A197-bSat-rho-KMW-mean_A2-T-C=region1-20x55x10.root
+│       │   └── EIC-A197-bSat-rho-KMW-mean_A2-T-C=region2-20x55x20.root
+│       ├── 22
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A-L-C=region1.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A-L-C=region2.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A-T-C=region1.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A-T-C=region2.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A2-L-C=region1.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A2-L-C=region2.root
+│       │   ├── EIC-A197-bSat-dvcs-KMW-mean_A2-T-C=region1.root
+│       │   └── EIC-A197-bSat-dvcs-KMW-mean_A2-T-C=region2.root
+│       ├── 333
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A-L-C=newregion1.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A-L-C=region2-20x55x160.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A-T-C=newregion1.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A-T-C=region2-20x55x160.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A2-L-C=newregion1.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A2-L-C=region2-20x55x20.root
+│       │   ├── EIC-A197-bSat-phi-KMW-mean_A2-T-C=newregion1.root
+│       │   └── EIC-A197-bSat-phi-KMW-mean_A2-T-C=region2-20x55x20.root
+│       └── 443
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-L-C=newregion1.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-L-C=region1-20x4x17.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-L-C=region2-20x55x160.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-T-C=newregion1.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-T-C=region1-20x4x17.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A-T-C=region2-20x55x160.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-L-C=newregion1.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-L-C=region1-20x4x17.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-L-C=region2-20x55x20.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-T-C=newregion1.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-T-C=region1-20x4x17.root
+│           ├── EIC-A197-bSat-jpsi-KMW-mean_A2-T-C=region2-20x55x20.root
+│           ├── test1.orig.root
+│           ├── test1.root
+│           ├── test2.orig.root
+│           ├── test2.root
+│           ├── test3.orig.root
+│           ├── test3.root
+│           ├── UPC-A197-bSat-jpsi-HMPZ-mean_A-T-C=region1.root
+│           ├── UPC-A197-bSat-jpsi-HMPZ-mean_A-T-C=region2.root
+│           ├── UPC-A197-bSat-jpsi-HMPZ-mean_A2-T-C=region1.root
+│           ├── UPC-A197-bSat-jpsi-HMPZ-mean_A2-T-C=region2.root
+│           ├── UPC-A197-bSat-jpsi-HMPZ-variance_A-T-C=region1.root
+│           └── UPC-A197-bSat-jpsi-HMPZ-variance_A-T-C=region2.root
+├── 208
+│   ├── bNonSat
+│   │   ├── 113
+│   │   ├── 22
+│   │   ├── 333
+│   │   ├── 443
+│   │   │   ├── A208_bNonSat_443_HMPZ_T_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_HMPZ_T_UPC_region2.root
+│   │   │   ├── A208_bNonSat_443_HMPZ_T2_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_HMPZ_T2_UPC_region2.root
+│   │   │   ├── A208_bNonSat_443_HMPZ_varT_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_HMPZ_varT_UPC_region2.root
+│   │   │   ├── A208_bNonSat_443_STU_T_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_STU_T_UPC_region2.root
+│   │   │   ├── A208_bNonSat_443_STU_T2_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_STU_T2_UPC_region2.root
+│   │   │   ├── A208_bNonSat_443_STU_varT_UPC_region1.root
+│   │   │   ├── A208_bNonSat_443_STU_varT_UPC_region2.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-mean_A-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-mean_A-T-C=region2.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-mean_A2-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-mean_A2-T-C=region2-despiked.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-variance_A-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-HMPZ-variance_A-T-C=region2-despiked.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-mean_A-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-mean_A-T-C=region2.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-mean_A2-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-mean_A2-T-C=region2-despiked.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-mean_A2-T-C=region2.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-variance_A-T-C=region1.root
+│   │   │   ├── UPC-A208-bNonSat-jpsi-STU-variance_A-T-C=region2-despiked.root
+│   │   │   └── UPC-A208-bNonSat-jpsi-STU-variance_A-T-C=region2.root
+│   │   └── 553
+│   │       ├── UPC-A208-bNonSat-ups-HMPZ-mean_A-T-C=region1.root
+│   │       ├── UPC-A208-bNonSat-ups-HMPZ-mean_A2-T-C=region1.root
+│   │       └── UPC-A208-bNonSat-ups-HMPZ-variance_A-T-C=region1.root
+│   └── bSat
+│       ├── 113
+│       ├── 22
+│       ├── 333
+│       │   ├── EIC-A208-bSat-phi-KMW-mean_A-L-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-phi-KMW-mean_A-T-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-phi-KMW-mean_A2-L-C=region1-46x100x18.root
+│       │   └── EIC-A208-bSat-phi-KMW-mean_A2-T-C=region1-46x100x18.root
+│       ├── 443
+│       │   ├── A208_bSat_443_HMPZ_T_UPC_region1.root
+│       │   ├── A208_bSat_443_HMPZ_T_UPC_region2.root
+│       │   ├── A208_bSat_443_HMPZ_T2_UPC_region1.root
+│       │   ├── A208_bSat_443_HMPZ_T2_UPC_region2.root
+│       │   ├── A208_bSat_443_HMPZ_varT_UPC_region1.root
+│       │   ├── A208_bSat_443_HMPZ_varT_UPC_region2.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A-L-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A-L-C=region2-46x100x20.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A-T-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A-T-C=region2-46x100x20.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A2-L-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A2-L-C=region2-46x100x20.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A2-T-C=region1-46x100x18.root
+│       │   ├── EIC-A208-bSat-jpsi-KMW-mean_A2-T-C=region2-46x100x20.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_443_merged_ver2_T.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_443_merged_ver2_T2.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_443_merged_ver2_VarT.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_merged_despiked2_VarT.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_merged_T.root
+│       │   ├── region1_bSat_BSTT_A208_UPC_merged_T2.root
+│       │   ├── region2_bSat_STU_A208_UPC_443_merged_despiked2_2_T2.root
+│       │   ├── region2_bSat_STU_A208_UPC_443_merged_despiked2_2_VarT.root
+│       │   ├── region2_bSat_STU_A208_UPC_443_merged_T.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-mean_A-T-C=region1.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-mean_A-T-C=region2.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-mean_A2-T-C=region1.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-mean_A2-T-C=region2-despiked.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-variance_A-T-C=region1-despiked.root
+│       │   ├── UPC-A208-bSat-jpsi-HMPZ-variance_A-T-C=region2-despiked.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-mean_A-T-C=region1.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-mean_A-T-C=region2.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-mean_A2-T-C=region1.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-mean_A2-T-C=region2-despiked.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-mean_A2-T-C=region2.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-variance_A-T-C=region1.root
+│       │   ├── UPC-A208-bSat-jpsi-STU-variance_A-T-C=region2-despiked.root
+│       │   └── UPC-A208-bSat-jpsi-STU-variance_A-T-C=region2.root
+│       └── 553
+│           ├── UPC-A208-bSat-ups-HMPZ-mean_A-T-C=region1.root
+│           ├── UPC-A208-bSat-ups-HMPZ-mean_A-T-C=region2.root
+│           ├── UPC-A208-bSat-ups-HMPZ-mean_A2-T-C=region1.root
+│           ├── UPC-A208-bSat-ups-HMPZ-mean_A2-T-C=region2.root
+│           ├── UPC-A208-bSat-ups-HMPZ-variance_A-T-C=region1.root
+│           └── UPC-A208-bSat-ups-HMPZ-variance_A-T-C=region2.root
+├── 40
+│   └── bSat
+│       ├── 113
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A-L-C=region1.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A-L-C=region2.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A-T-C=region1.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A-T-C=region2.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A2-L-C=region1.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A2-L-C=region2.root
+│       │   ├── EIC-A40-bSat-rho-KMW-mean_A2-T-C=region1.root
+│       │   └── EIC-A40-bSat-rho-KMW-mean_A2-T-C=region2.root
+│       ├── 22
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A-L-C=region1.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A-L-C=region2.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A-T-C=region1.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A-T-C=region2.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A2-L-C=region1.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A2-L-C=region2.root
+│       │   ├── EIC-A40-bSat-dvcs-KMW-mean_A2-T-C=region1.root
+│       │   └── EIC-A40-bSat-dvcs-KMW-mean_A2-T-C=region2.root
+│       ├── 333
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A-L-C=region1.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A-L-C=region2.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A-T-C=region1.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A-T-C=region2.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A2-L-C=region1.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A2-L-C=region2.root
+│       │   ├── EIC-A40-bSat-phi-KMW-mean_A2-T-C=region1.root
+│       │   └── EIC-A40-bSat-phi-KMW-mean_A2-T-C=region2.root
+│       └── 443
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A-L-C=region1.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A-L-C=region2.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A-T-C=region1.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A-T-C=region2.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A2-L-C=region1.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A2-L-C=region2.root
+│           ├── EIC-A40-bSat-jpsi-KMW-mean_A2-T-C=region1.root
+│           └── EIC-A40-bSat-jpsi-KMW-mean_A2-T-C=region2.root
+└── old-structure.txt
+
+44 directories, 380 files
