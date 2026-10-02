@@ -29,6 +29,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <algorithm>
 #include <iomanip>
 #include "Amplitudes.h"
 #include "TROOT.h"

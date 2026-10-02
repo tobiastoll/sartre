@@ -24,10 +24,12 @@
 #   - cmake_minimum_required / CXX standard / CMAKE_MODULE_PATH now come from
 #     the top-level CMakeLists.txt (removed the duplicate re-declarations,
 #     which previously requested CMake 3.1 here vs 3.30 in src/).
-#   - "-stdlib=libc++" was previously applied unconditionally, which is a
-#     Clang/libc++-specific flag; on GCC (e.g. Linux) this can silently do
-#     nothing or break the build. Now guarded the same way src/CMakeLists.txt
-#     already guards its one Clang-specific flag.
+#   - "-stdlib=libc++" moved to the top-level CMakeLists.txt (guarded for
+#     Clang there) so that gemini and src/ are always built against the
+#     same C++ standard library. It used to be set only here, which left
+#     src/ (the sartre library) on a different stdlib under Clang and
+#     produced ABI-mismatched, unresolvable symbols between libsartre.a
+#     and libgemini.a at link time.
 #   - include_directories()/ROOT_LIBRARIES now attached directly to the
 #     `gemini` target via target_include_directories()/target_link_libraries.
 #===============================================================================
@@ -40,14 +42,10 @@ set(CMAKE_C_FLAGS_RELEASE "-O -W -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -W -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_RELEASE "-O -W -Wall -Wextra")
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-endif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-
 #
-# ROOT
+# ROOT is found once in the top-level CMakeLists.txt (CONFIG mode); the
+# ROOT_INCLUDE_DIRS / ROOT_LIBRARIES variables set there are inherited here.
 #
-find_package(ROOT REQUIRED)
 
 #
 #  Gemini library sources
@@ -78,7 +76,7 @@ set(GEMINI_SRC ${GEMINI_SRC} "CYrast.cpp")
 #  Gemini library
 #
 add_library(gemini ${GEMINI_SRC})
-target_include_directories(gemini PUBLIC ${ROOT_INCLUDE_DIR})
+target_include_directories(gemini PUBLIC ${ROOT_INCLUDE_DIRS})
 target_link_libraries(gemini PUBLIC ${ROOT_LIBRARIES})
 
 #

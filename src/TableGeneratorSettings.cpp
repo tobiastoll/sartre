@@ -15,10 +15,12 @@
 #include "Settings.h"    
 #include "TableGeneratorSettings.h"    
 #include "Constants.h"    
-#include <cmath>    
+#include <cmath>
 #include <ctime>
 #include <vector>
 #include <stdlib.h>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -147,7 +149,7 @@ void TableGeneratorSettings::consolidateSettings() // called after runcard is re
     double xp_max=2.5e-2; //Model is valid for xp<1e-2, but we can leave some wiggle room in the tables.
     double VMMass=lookupPDG(mVectorMesonId)->Mass();
     double W2min=VMMass*VMMass/xp_max+protonMass2+mQ2min*(1-xp_max)/xp_max;
-    double Wmin=sqrt(W2min);
+    double Wmin=std::sqrt(W2min);
     if (mWmin<Wmin){
         mWmin=Wmin;
         cout << "TableGeneratorSettings::consolidateSettings(): Warning, Wmin is smaller than allowed value." << endl;

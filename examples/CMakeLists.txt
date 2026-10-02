@@ -20,13 +20,18 @@ project(SARTRE_EXAMPLES LANGUAGES CXX)
 # Compiler settings
 # ------------------------------------------------------------------------------
 
-set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_compile_options(-Wall -Wextra -pedantic -Wno-long-long)
 
-# libc++ is required on macOS; skip on Linux (GCC doesn't support it).
+# Must match whatever stdlib libsartre.a/libgemini.a (and ROOT itself) were
+# built with — see the top-level CMakeLists.txt, which applies this same
+# APPLE-only guard. AppleClang only ever ships libc++, so this is a no-op
+# there, never actively required. On Linux, Clang's own default already
+# matches however ROOT and the rest of the system were built (almost always
+# libstdc++): forcing libc++ there instead breaks linking against ROOT's
+# own libraries ("undefined reference to TObject::...(std::__1::...)").
 if(APPLE)
   add_compile_options(-stdlib=libc++)
   add_link_options(-stdlib=libc++)
@@ -43,11 +48,7 @@ endif()
 
 message(STATUS "System = ${CMAKE_SYSTEM}")
 
-# Sartre ships its own FindRoot.cmake (and FindPythia8.cmake) under
-# cmake/modules in the source tree.  Point CMake there so that
-# find_package(ROOT) uses it instead of any system-level ROOT config.
-# This is intentional: the custom module sets ROOT_LIBRARIES / ROOT_INCLUDE_DIR
-# in the same way the rest of the build already expects them.
+# Sartre ships FindPythia8.cmake under cmake/modules in the source tree.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 # ------------------------------------------------------------------------------
@@ -97,12 +98,17 @@ if(ENABLE_OMP)
 endif()
 find_package(GSL     REQUIRED)
 
-# find_package(ROOT) is handled by cmake/modules/FindRoot.cmake.
-# It sets: ROOT_INCLUDE_DIR, ROOT_LIBRARIES, ROOT_EG_LIBRARY,
-#          ROOT_MathMore_LIBRARY, ROOT_Unuran_LIBRARY.
-# The namespaced ROOT::Core / ROOT::Hist / ... targets from a modern
-# ROOTConfig.cmake are NOT available when using the custom module.
-find_package(ROOT REQUIRED)
+# ROOT, found via its own exported CONFIG package (ROOTConfig.cmake), same
+# as the main Sartre build. Sets ROOT_INCLUDE_DIRS, ROOT_LIBRARIES,
+# ROOT_EG_LIBRARY, ROOT_MathMore_LIBRARY, ROOT_Unuran_LIBRARY (the latter
+# three via COMPONENTS below) as well as ROOT_CXX_STANDARD, and the
+# namespaced ROOT::Core / ROOT::Hist / ... imported targets.
+find_package(ROOT 6.20 CONFIG REQUIRED COMPONENTS EG MathMore Unuran)
+
+# Must match the C++ standard the linked libsartre.a/libgemini.a were built
+# with, which in turn tracks the ROOT installation (see top-level
+# CMakeLists.txt) — so derive it from ROOT here too rather than hardcoding.
+set(CMAKE_CXX_STANDARD ${ROOT_CXX_STANDARD})
 
 # Only needed if libsartre.a was built with MULTITHREADED=ON. That build
 # compiles Amplitudes.cpp's "#if defined(SARTRE_IN_MULTITHREADED_MODE)"
@@ -170,7 +176,7 @@ target_include_directories(CommonDeps INTERFACE
   ${SARTRE_DIR}/include
   ${PYTHIA8_INCLUDE_DIR}
   ${GSL_INCLUDE_DIR}
-  ${ROOT_INCLUDE_DIR}
+  ${ROOT_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIR}
 )
 

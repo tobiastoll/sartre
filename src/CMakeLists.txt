@@ -61,7 +61,13 @@ set(CMAKE_C_FLAGS "-W")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O")
 message("COMPILER = ${CMAKE_CXX_COMPILER_ID}")
-set(CMAKE_CXX_FLAGS "-W -Wall -Wextra -pedantic -Wno-long-long")
+# Append, don't overwrite: CMAKE_CXX_FLAGS is inherited from the top-level
+# CMakeLists.txt (it sets "-stdlib=libc++" there for Clang). A plain
+# set(CMAKE_CXX_FLAGS "...") here previously discarded that inherited value,
+# leaving sartre built against a different C++ standard library than gemini
+# whenever Clang was the compiler — undefined references between
+# libsartre.a and libgemini.a at link time.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra -pedantic -Wno-long-long")
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-potentially-evaluated-expression")
 endif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -75,17 +81,16 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O")
 
 #
 #  Find external required packages
-#  (see also FindGSL.cmake and FindROOT.cmke in cmake/modules)
-#  Herer we need only the root library to create the table
-#  tools.
+#  (see also FindGSL.cmake in cmake/modules; ROOT is found via its own
+#  exported CONFIG package, in the top-level CMakeLists.txt)
 #
 
 # GSL — hard required (e.g. gsl_integration_glfixed_* in DipoleModel.cpp)
 find_package(GSL REQUIRED)
 set(LIBS ${LIBS} ${GSL_LIBRARIES})
 
-# ROOT — hard required throughout
-find_package(ROOT REQUIRED)
+# ROOT — hard required throughout; found once in the top-level
+# CMakeLists.txt (CONFIG mode), inherited here.
 set(LIBS ${LIBS} ${ROOT_LIBRARIES})
 
 # strip leading and trailing blanks
@@ -185,7 +190,24 @@ ExternalProject_Add(
     SOURCE_DIR ${PROJECT_BINARY_DIR}/cuba
     PREFIX ${PROJECT_BINARY_DIR}/cuba
     CONFIGURE_COMMAND ${PROJECT_BINARY_DIR}/cuba/configure --prefix=${PROJECT_BINARY_DIR}/cuba/build
-    BUILD_COMMAND make lib
+    # Cuba's own makefile builds libcuba.a from ~20 independent archive-member
+    # prerequisites, each running its own "$(AR) ... $(LIB) <member>.o" on the
+    # *same* archive file with no locking — if make runs any of those member
+    # rules concurrently, the ar invocations race and corrupt the archive
+    # ("file truncated"). An explicit "-j1" alone isn't reliably enough to
+    # prevent that: MAKEFLAGS (e.g. an inherited -jN from the outer parallel
+    # build, or exported by the environment/cluster setup) can still leak
+    # into this nested make and win out. Stripping MAKEFLAGS from the
+    # environment for this one command removes that ambiguity entirely.
+    # BUILD_JOB_SERVER_AWARE additionally stops CMake itself from deliberately
+    # sharing its jobserver with this step.
+    BUILD_COMMAND ${CMAKE_COMMAND} -E env --unset=MAKEFLAGS -- ${CMAKE_MAKE_PROGRAM} -j1 lib
+    BUILD_JOB_SERVER_AWARE 0
+    # ExternalProject's default INSTALL_COMMAND is plain "make install", which
+    # is not covered by BUILD_JOB_SERVER_AWARE/the BUILD_COMMAND above, and
+    # Cuba's own "install:" target depends on "lib" again — so without this,
+    # the install step re-runs the same unprotected, racy archive build.
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E env --unset=MAKEFLAGS -- ${CMAKE_MAKE_PROGRAM} -j1 install
     BUILD_IN_SOURCE 1
 )
 
@@ -241,7 +263,7 @@ target_include_directories(sartre PUBLIC
     ${PROJECT_SOURCE_DIR}/gemini
     ${PROJECT_SOURCE_DIR}/cuba
     ${GSL_INCLUDE_DIR}
-    ${ROOT_INCLUDE_DIR}
+    ${ROOT_INCLUDE_DIRS}
 )
 # PYTHIA8_INCLUDE_DIR is only defined when find_package(Pythia8) actually
 # ran above; harmless (empty) to append otherwise.
