@@ -154,7 +154,18 @@ void Nucleus::init(unsigned int A)
             mMass = 107.8682*unifiedAtomicMass;
             mSpin = 1./2.;
             break;
-       case 96: // Ru https://arxiv.org/pdf/2405.11558v2
+        case 107: // Ag 107
+            mZ = 47;
+            mRadius = 5.3156;
+            mSurfaceThickness = 0.5234;
+            mOmega = 0;
+            mRho0 = 0.15667;
+            mName = "Ag(II)";
+            mMass = 106.90509*unifiedAtomicMass;
+            mSpin = 1./2.;
+            break;
+
+        case 96: // Ru https://arxiv.org/pdf/2405.11558v2
             mZ = 44;
             mRadius = 5.096;
             mSurfaceThickness = 0.540;

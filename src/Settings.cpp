@@ -12,14 +12,15 @@
 //  $Date: 2026-09-18 13:35:41 -0400 (Fri, 18 Sep 2026) $
 //  $Author: ullrich $
 //==============================================================================
-#include "Settings.h"    
+#include "Settings.h"
 #include "Constants.h"
 #include <typeinfo>
-#include <fstream>    
-#include <sstream>    
-#include <iomanip>    
-#include <ctype.h>    
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <ctype.h>
 #include <cstdlib>
+#include <cmath>
 #include "TParticlePDG.h"
 #include "TError.h"
 
@@ -457,18 +458,18 @@ int Settings::verboseLevel() const {return mVerboseLevel;}
 
 void Settings::setQ2min(double val) { mQ2min = val;}
 double Settings::Q2min() const {return mQ2min;}
-double Settings::Qmin() const {return sqrt(mQ2min);}
+double Settings::Qmin() const {return std::sqrt(mQ2min);}
 
 void Settings::setQ2max(double val) { mQ2max = val;}
 double Settings::Q2max() const {return mQ2max;}
-double Settings::Qmax() const {return sqrt(mQ2max);}
+double Settings::Qmax() const {return std::sqrt(mQ2max);}
 
-void Settings::setW2min(double val) { mWmin = sqrt(val);}
+void Settings::setW2min(double val) { mWmin = std::sqrt(val);}
 void Settings::setWmin(double val) { mWmin = val;}
 double Settings::Wmin() const {return mWmin;}
 double Settings::W2min() const {return mWmin*mWmin;}
 
-void Settings::setW2max(double val) { mWmax = sqrt(val);}
+void Settings::setW2max(double val) { mWmax = std::sqrt(val);}
 void Settings::setWmax(double val) { mWmax = val;}
 double Settings::Wmax() const {return mWmax;}
 double Settings::W2max() const {return mWmax*mWmax;}

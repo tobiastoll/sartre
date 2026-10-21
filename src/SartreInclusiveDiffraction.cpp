@@ -56,6 +56,9 @@ SartreInclusiveDiffraction::SartreInclusiveDiffraction()
 //    mSettings = 0;
     mPDF_Functor = 0;
     mPDF = 0;
+    mPDF_Functor_qqg = 0;
+    mPDF_qqg = 0;
+    mUnuran_qqg = 0;
     mEventCounter = 0;
     mTriesCounter = 0;
     mTotalCrossSection = 0;
@@ -76,8 +79,11 @@ SartreInclusiveDiffraction::~SartreInclusiveDiffraction()
     delete mUpcNucleus;
     delete mPDF_Functor;
     delete mPDF;
+    delete mPDF_Functor_qqg;
+    delete mPDF_qqg;
     delete mCrossSection;
     delete mUnuran;
+    delete mUnuran_qqg;
     delete mCurrentEvent;
     if(mTableCollection) delete mTableCollection;
     
