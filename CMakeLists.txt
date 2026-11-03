@@ -44,12 +44,46 @@ endif ()
 message(STATUS "Build type = ${CMAKE_BUILD_TYPE}")
 
 #
-#  C++ standard — declared once here, inherited by src/ and gemini/
-#  (both previously repeated this block independently).
+#  ROOT — found once here (CONFIG mode, i.e. ROOT's own exported
+#  ROOTConfig.cmake) so that src/ and gemini/ inherit both the ROOT::*
+#  imported targets and ROOT_CXX_STANDARD below without re-running
+#  find_package(ROOT) themselves. Previously each subdirectory called the
+#  custom cmake/modules/FindROOT.cmake (MODULE mode) independently, which
+#  has no notion of the C++ standard a given ROOT build requires — that's
+#  why CMAKE_CXX_STANDARD used to be hardcoded to 17 below regardless of
+#  the actual ROOT installation.
 #
-set(CMAKE_CXX_STANDARD 17)
+find_package(ROOT 6.20 CONFIG REQUIRED)
+
+#
+#  C++ standard — declared once here, inherited by src/ and gemini/
+#  (both previously repeated this block independently). Driven by
+#  ROOT_CXX_STANDARD (set by ROOTConfig.cmake above) so the build always
+#  matches the C++ standard the linked ROOT was actually built with.
+#
+set(CMAKE_CXX_STANDARD ${ROOT_CXX_STANDARD})
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+#
+#  Declared once here (was previously duplicated independently in
+#  gemini/CMakeLists.txt only, never in src/CMakeLists.txt) so that the
+#  sartre and gemini libraries are always built against the same C++
+#  standard library. A mismatch here causes ABI-incompatible symbols
+#  (e.g. std::__1::string vs. std::string[abi:cxx11]) and undefined
+#  references at link time.
+#
+#  Guarded on APPLE, not on "compiler is Clang": AppleClang only ever
+#  ships libc++, so this is a no-op there, never actively required —
+#  but on Linux, Clang's own default already matches however ROOT (and
+#  the rest of the system) was built, almost always libstdc++. Forcing
+#  libc++ there instead breaks linking against ROOT's own libraries
+#  (e.g. "undefined reference to TObject::SavePrimitive(std::__1::...)")
+#  since ROOT itself wasn't built against libc++.
+#
+if (APPLE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif (APPLE)
 
 #
 #  User can select if Sartre is to be compiled
