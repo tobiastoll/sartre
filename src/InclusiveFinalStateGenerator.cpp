@@ -344,7 +344,7 @@ bool InclusiveFinalStateGenerator::generate(int A, Event *event, FockState focks
     event->particles[quark].index = quark;
     event->particles[antiquark].index = antiquark;
     if(fockstate==QQG)
-        event->particles[antiquark].index = gluon;
+        event->particles[gluon].index = gluon; // bpn : this should be gluon, not antiquark
     
     // 4-vectors
     event->particles[eOut].p = theScatteredElectron;
@@ -413,7 +413,12 @@ bool InclusiveFinalStateGenerator::generate(int A, Event *event, FockState focks
     double y=mHadronBeam*theVirtualPhoton/(mHadronBeam*mElectronBeam);
     W2=(theVirtualPhoton+mHadronBeam).M2();
     mQ2=-theVirtualPhoton.M2();
-    MX2=(theQuark+theAntiQuark).M2();
+    if(ifock == 0 ) MX2 = (theQuark+theAntiQuark).M2();
+    else if(ifock == 1 ) MX2 = (theQuark+theAntiQuark+theGluon).M2();
+    else{
+        cout<<"InclusiveFinalStateGenerator::generate: unknown fockstate: "<<fockstate<<" ending program."<<endl;
+        exit(0);
+    }
     double Delta=thePomeron.Pt();
     
     event->t=-Delta*Delta;
@@ -477,6 +482,7 @@ bool InclusiveFinalStateGenerator::generate(int A, Event *event, FockState focks
     int offset = 3+ifock; //pythia particles start at i=3(QQ), or i=4(QQG) in pythia list
     
     event->numberOfPythiaParticlesStored = 0;
+
     for (int i = offset; i < mPythiaEvent->size(); i++) {
         Particle pypart;
         pypart.index = event->particles.size();
@@ -490,10 +496,10 @@ bool InclusiveFinalStateGenerator::generate(int A, Event *event, FockState focks
                                   mPythiaEvent->at(i).py(),
                                   mPythiaEvent->at(i).pz(),
                                   mPythiaEvent->at(i).e());
-        if (mPythiaEvent->at(i).mother1()) pypart.parents.push_back(mPythiaEvent->at(i).mother1()+offset+1);
-        if (mPythiaEvent->at(i).mother2()) pypart.parents.push_back(mPythiaEvent->at(i).mother2()+offset+1);
-        if (mPythiaEvent->at(i).daughter1()) pypart.daughters.push_back(mPythiaEvent->at(i).daughter1()+offset+1);
-        if (mPythiaEvent->at(i).daughter2()) pypart.daughters.push_back(mPythiaEvent->at(i).daughter2()+offset+1);
+        if (mPythiaEvent->at(i).mother1()) pypart.parents.push_back(mPythiaEvent->at(i).mother1()+4);//offset+1); // bpn: the offset should be always 4
+        if (mPythiaEvent->at(i).mother2()) pypart.parents.push_back(mPythiaEvent->at(i).mother2()+4);//offset+1); // bpn: the offset should be always 4
+        if (mPythiaEvent->at(i).daughter1()) pypart.daughters.push_back(mPythiaEvent->at(i).daughter1()+4);//offset+1); // bpn: the offset should be always 4
+        if (mPythiaEvent->at(i).daughter2()) pypart.daughters.push_back(mPythiaEvent->at(i).daughter2()+4);//offset+1); // bpn: the offset should be always 4
         
         event->particles.push_back(pypart);
         event->numberOfPythiaParticlesStored++;

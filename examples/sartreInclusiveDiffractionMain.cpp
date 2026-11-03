@@ -32,7 +32,11 @@
 #include "DglapEvolution.h"
 #include "Kinematics.h"
 
+#include "EicSmearFormatWriter.h"
+
 #define PR(x) cout << #x << " = " << (x) << endl;
+
+#define EIC_SMEAR_OUTPUT 1
 
 using namespace std;
 InclusiveDiffractiveCrossSections* myICS=0;
@@ -346,6 +350,17 @@ int main(int argc, char *argv[])
         cout << "ROOT file is '" <<  rootfile.c_str() << "'." << endl;
     }
     
+#if defined(EIC_SMEAR_OUTPUT)
+    string eicSmearFilename;
+    eicSmearFilename = rootfile.substr(0, rootfile.find(".root"));
+    eicSmearFilename += ".out";
+    EicSmearFormatWriter eicSmearWriter;
+    eicSmearWriter.open(eicSmearFilename, settings->enableNuclearBreakup(), true);
+    cout << "eic-smear compatible output file is '" << eicSmearFilename << "'." << endl;
+#endif
+
+
+
     /*
          Tobias Special - do not use
      
@@ -494,6 +509,9 @@ int main(int argc, char *argv[])
             }  // for
         }  // if
         tree.Fill();
+#if defined(EIC_SMEAR_OUTPUT)
+        eicSmearWriter.writeInclusiveDiffractionEvent(event);
+#endif
     }
     cout << "All events processed\n" << endl;
     
@@ -510,6 +528,12 @@ int main(int argc, char *argv[])
     double runTime = sartre.runTime();
     hfile->Write();
     cout << rootfile.c_str() << " written." << endl;
+
+#if defined(EIC_SMEAR_OUTPUT)
+    eicSmearWriter.close();
+    cout << "File '" << eicSmearWriter.filename() << "' written." << endl;
+#endif
+
     cout << "Total cross-section: " << totalCS << " nb" << endl;
     sartre.listStatus();
     cout << "CPU Time/event: " << runTime/maxEvents << " seconds/event" << endl;
