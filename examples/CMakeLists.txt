@@ -228,6 +228,7 @@ set(EXECUTABLES
   tableGeneratorUPCMain
   lambdaGeneratorMain
   convergenceTest
+  InitialStateFitter_clem
 )
 
 # These call into SartreInclusiveDiffraction / InclusiveFinalStateGenerator
