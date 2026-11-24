@@ -646,7 +646,8 @@ private:
     DglapEvolution*                    dglap_  = nullptr;
     std::unique_ptr<WaveOverlapVM>     wave_;
     std::unique_ptr<DipoleModel_bSat>  dipole_;
-    double mf_charm_         = 1.345;   ///< quark mass [GeV] from wave_->mf2(); despite the
+    TableGeneratorSettings* settings = TableGeneratorSettings::instance();
+    double mf_charm_         = settings->quarkMass(3);//1.345;   ///< quark mass [GeV] from wave_->mf2(); despite the
                                          ///< name this is meson-specific once set (charm for
                                          ///< J/ψ, light/strange for ρ/φ) -- kept the name to
                                          ///< avoid touching every call site that reads it.
