@@ -16,10 +16,37 @@
 #include "Settings.h"
 #include "TableGeneratorSettings.h"
 #include <iomanip>
+#include <cmath>
+#include <algorithm>
 
 using namespace std;
 
 #define PR(x) cout << #x << " = " << (x) << endl;
+
+namespace {
+
+//
+//  The boosted-Gaussian parameters (R^2, N_T, N_L) of the STU and HMPZ sets are solutions of
+//  norm_T = 1, norm_L = 1 and the PDG e+e- width for ONE specific quark mass.
+//  If the fitted quark mass changes they have to be re-solved (solveBoostedGaussian.py,
+//  WaveOverlapVM::testBoostedGaussianParameters() shows the effect). Warn once per
+//  process so that the two can never drift apart unnoticed.
+//
+void warnIfBoostedGaussianParametersStale(const char* set, const char* vm, double quarkMass, double solvedForMass)
+{
+    static bool alreadyWarned = false;
+    if (alreadyWarned) return;
+    if (fabs(quarkMass - solvedForMass) <= 1e-9*max(1., fabs(solvedForMass))) return;
+    alreadyWarned = true;
+    cerr << "DipoleModelParameters: WARNING, the " << set << " boosted-Gaussian parameters for the " << vm
+         << " were solved for quark mass " << setprecision(15) << solvedForMass
+         << " GeV but the dipole-model quark mass is now " << quarkMass
+         << " GeV. Norm and decay-width conditions are no longer satisfied."
+         << " Re-solve (R2, NT, NL) with solveBoostedGaussian.py and update"
+         << " DipoleModelParameters::setup_boostedGaussiansWaveFunction()." << endl;
+}
+
+}
 
 
 DipoleModelParameters::DipoleModelParameters(Settings* settings)
@@ -270,12 +297,7 @@ void DipoleModelParameters::setupParameters()
     Settings::setQuarkMass(5, 175.);
 
     //
-    //  Parameters for boosted Gaussian wave function
-    //
-    setup_boostedGaussiansWaveFunction();
-
-    //
-    //  Model parameters
+    //  Model parameters (this also sets the u, d, s, c quark masses)
     //
     if (mDipoleModelType == bSat) {
         setup_bSat();
@@ -291,7 +313,14 @@ void DipoleModelParameters::setupParameters()
         cout << "                                          and requested parmeter set "
              << "(" <<  mDipoleModelType << "/" << mDipoleModelParameterSet << "). Stop." << endl;
         exit(1);
-    } 
+    }
+
+    //
+    //  Parameters for boosted Gaussian wave function.
+    //  Must come after the model parameters: for the STU set the quark mass
+    //  of the wave function is taken from Settings::quarkMass().
+    //
+    setup_boostedGaussiansWaveFunction();
 }
 
 double DipoleModelParameters::boostedGaussianR2(int vm)
@@ -384,44 +413,78 @@ void DipoleModelParameters::setup_boostedGaussiansWaveFunction()
         mBoostedGaussianNT_jpsi = 0.578;
         mBoostedGaussianQuarkMass_jpsi = 1.4;
     }
-    else if (mDipoleModelParameterSet == HMPZ || mDipoleModelParameterSet == STU) {
-        if (mDipoleModelType == bSat) {
-            mBoostedGaussianR2_rho = 3.6376*3.6376;
-            mBoostedGaussianNL_rho = 0.8926;
-            mBoostedGaussianNT_rho = 0.9942;
-            mBoostedGaussianQuarkMass_rho = 0.03;
-        
-            mBoostedGaussianR2_phi = 3.3922*3.3922;
-            mBoostedGaussianNL_phi = 0.8400;
-            mBoostedGaussianNT_phi = 0.9950;
-            mBoostedGaussianQuarkMass_phi = 0.03;
-            
-            mBoostedGaussianR2_jpsi = 1.5070*1.5070;
-            mBoostedGaussianNL_jpsi = 0.5860;
-            mBoostedGaussianNT_jpsi = 0.5890;
-            mBoostedGaussianQuarkMass_jpsi = 1.3528;
+    else if (mDipoleModelParameterSet == STU || mDipoleModelParameterSet == HMPZ) {
+        //
+        //  STU and HMPZ: single-mass convention, as in KMW. The quark mass in the
+        //  boosted-Gaussian exponent is the dipole-fit mass Settings::quarkMass(),
+        //  i.e. the very mass WaveOverlapVM uses in epsilon^2 and in the explicit
+        //  m_f^2 terms. R, N_T and N_L (R in GeV^-1) are the solution of
+        //     norm_T = 1,  norm_L = 1   (KMW Eqs. 24, 25; integrated over r -> infinity)
+        //     Gamma(V->ee) = 7.04 (rho), 1.27 (phi), 5.55 keV (J/psi)   (KMW Eq. 27)
+        //  for exactly these masses. They are only valid for 'solvedForMass';
+        //  if the fitted masses change they must be re-solved with
+        //  solveBoostedGaussian.py (a warning is issued otherwise).
+        //  Quark index used: rho -> 1 (d), phi -> 2 (s), J/psi -> 3 (c), as in
+        //  WaveOverlapVM::setProcess().
+        //
+        //  HMPZ: the dipole parameters and masses set in setup_bSat()/setup_bNonSat()
+        //  are the HERA I+II fits (Table I of arXiv:1804.05311), whereas the wave-function
+        //  parameters of its Table II (R, N_T, N_L, m_f) belong to the HERA I fits
+        //  (m_f = 0.03/1.3528 bSat, 0.1516/1.3504 bNonSat). Those are not consistent with
+        //  the masses used here, so R, N_T, N_L were re-solved for the I+II masses. Where the
+        //  mass agrees (bSat rho, phi: 0.03) this reproduces Table II to <= 0.3%:
+        //  Table II  bSat    rho 3.6376, 0.9942, 0.8926   phi 3.3922, 0.9950, 0.8400   (R, N_T, N_L)
+        //            bSat    J/psi 1.5070, 0.5890, 0.5860 (m_f 1.3528)
+        //            bNonSat rho 3.5750, 0.8978, 0.8467   phi 3.3530, 0.9072, 0.8196  (m_f 0.1516)
+        //            bNonSat J/psi 1.5071, 0.5899, 0.5868 (m_f 1.3504)
+        //
+        const bool isSTU = (mDipoleModelParameterSet == STU);
+        const char* setName = isSTU ? "STU" : "HMPZ";
+        struct BGSolution {double R, NT, NL, solvedForMass;};
+        BGSolution rho, phi, jpsi;
+        if (isSTU && mDipoleModelType == bSat) {
+            rho  = {3.6394800258, 0.9998936759, 0.8946531477, 0.004008411318047};
+            phi  = {3.3821426204, 0.9999081706, 0.8419150630, 0.004008411318047};
+            jpsi = {1.4901136119, 0.5779454137, 0.5744002718, 1.428034604225};
         }
-        else if (mDipoleModelType == bNonSat) {
-            mBoostedGaussianR2_rho = 3.5750*3.5750;
-            mBoostedGaussianNL_rho = 0.8467;
-            mBoostedGaussianNT_rho = 0.8978;
-            mBoostedGaussianQuarkMass_rho = 0.1516;
-            
-            mBoostedGaussianR2_phi = 3.3530*3.3530;
-            mBoostedGaussianNL_phi = 0.8196;
-            mBoostedGaussianNT_phi = 0.9072;
-            mBoostedGaussianQuarkMass_phi = 0.1516;
-            
-            mBoostedGaussianR2_jpsi = 1.5071*1.5071;
-            mBoostedGaussianNL_jpsi = 0.5868;
-            mBoostedGaussianNT_jpsi = 0.5899;
-            mBoostedGaussianQuarkMass_jpsi = 1.3504;
+        else if (isSTU && mDipoleModelType == bNonSat) {
+            rho  = {3.6316821028, 0.9839063159, 0.8888955890, 0.05115764924041};
+            phi  = {3.3776232919, 0.9859696095, 0.8396608608, 0.05115764924041};
+            jpsi = {1.5069404282, 0.5905821792, 0.5875234125, 1.344570122871};
         }
-        else if (mDipoleModelType == bCGC) {
+        else if (!isSTU && mDipoleModelType == bSat) {
+            rho  = {3.6368175017, 0.9942168306, 0.8926862849, 0.03};
+            phi  = {3.3806197872, 0.9949861327, 0.8411609756, 0.03};
+            jpsi = {1.5117426712, 0.5943453778, 0.5911621163, 1.3210};
+        }
+        else if (!isSTU && mDipoleModelType == bNonSat) {
+            rho  = {3.5757867956, 0.8996712273, 0.8479195325, 0.1497};
+            phi  = {3.3426128277, 0.9094376545, 0.8211784045, 0.1497};
+            jpsi = {1.5123553546, 0.5948308614, 0.5916227490, 1.3180};
+        }
+        else {
             cout << "DipoleModelParameters::setup_boostedGaussiansWaveFunction(): "
-            "Error, no HMPZ wave function parameters for CGC model. Stop." << endl;
+            "Error, no " << setName << " wave function parameters for CGC model. Stop." << endl;
             exit(1);
         }
+
+        mBoostedGaussianR2_rho = rho.R*rho.R;
+        mBoostedGaussianNL_rho = rho.NL;
+        mBoostedGaussianNT_rho = rho.NT;
+        mBoostedGaussianQuarkMass_rho = Settings::quarkMass(1);
+        warnIfBoostedGaussianParametersStale(setName, "rho", mBoostedGaussianQuarkMass_rho, rho.solvedForMass);
+
+        mBoostedGaussianR2_phi = phi.R*phi.R;
+        mBoostedGaussianNL_phi = phi.NL;
+        mBoostedGaussianNT_phi = phi.NT;
+        mBoostedGaussianQuarkMass_phi = Settings::quarkMass(2);
+        warnIfBoostedGaussianParametersStale(setName, "phi", mBoostedGaussianQuarkMass_phi, phi.solvedForMass);
+
+        mBoostedGaussianR2_jpsi = jpsi.R*jpsi.R;
+        mBoostedGaussianNL_jpsi = jpsi.NL;
+        mBoostedGaussianNT_jpsi = jpsi.NT;
+        mBoostedGaussianQuarkMass_jpsi = Settings::quarkMass(3);
+        warnIfBoostedGaussianParametersStale(setName, "J/psi", mBoostedGaussianQuarkMass_jpsi, jpsi.solvedForMass);
     }
     else {
         cout << "DipoleModelParameters::setup_boostedGaussiansWaveFunction(): Error, no known parameters for given dipole model "

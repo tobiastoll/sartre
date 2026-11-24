@@ -1,19 +1,27 @@
 //==============================================================================
 //  WaveOverlap.cpp
 //
-//  Copyright (C) 2010-2026 Tobias Toll and Thomas Ullrich
+//  Copyright (C) 2010-2024 Tobias Toll and Thomas Ullrich
 //
-//  This file is part of the Sartre event generator.
+//  This file is part of Sartre.
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation. See <http://www.gnu.org/licenses/>.
+//  the Free Software Foundation.
+//  This program is distributed in the hope that it will be useful,
+//  but without any warranty; without even the implied warranty of
+//  merchantability or fitness for a particular purpose. See the
+//  GNU General Public License for more details.
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-//  $Date: 2026-09-18 13:35:41 -0400 (Fri, 18 Sep 2026) $
+//  Author: Tobias Toll
+//  Last update:
+//  $Date: 2024-08-02 03:58:15 +0530 (Fri, 02 Aug 2024) $
 //  $Author: ullrich $
 //==============================================================================
 #include "WaveOverlap.h"
-#include "Constants.h"  
+#include "Constants.h"
 #include "TableGeneratorSettings.h"
 #include "DipoleModelParameters.h"
 #include "TMath.h"
@@ -26,23 +34,46 @@
 #include "Math/GaussIntegrator.h"
 
 
-using  namespace std;  
+using  namespace std;
 
 #define PR(x) cout << #x << " = " << (x) << endl;
+
+namespace {
+
+//
+//  For the STU parameter set the quark mass in the boosted-Gaussian exponent
+//  is, by construction, the dipole-fit mass Settings::quarkMass() that is used
+//  for epsilon^2 and the explicit m_f^2 terms (single-mass convention, see
+//  DipoleModelParameters::setup_boostedGaussiansWaveFunction()). Both are
+//  stored independently in WaveOverlapVM, so check once that they agree.
+//
+void checkSingleQuarkMass(DipoleModelParameterSet parameterSet, double mExplicit, double mBoostedGaussian)
+{
+    static bool alreadyWarned = false;
+    if (alreadyWarned || parameterSet != STU || mExplicit <= 0 || mBoostedGaussian <= 0) return;
+    if (fabs(mExplicit - mBoostedGaussian) > 1e-9*mExplicit) {
+        alreadyWarned = true;
+        cerr << "WaveOverlapVM: WARNING, quark mass in the explicit m_f^2 terms (" << mExplicit
+             << " GeV) differs from the one in the boosted-Gaussian exponent (" << mBoostedGaussian
+             << " GeV). For the STU set both must be Settings::quarkMass()." << endl;
+    }
+}
+
+}
 
 WaveOverlap::WaveOverlap()
 {
     mParameters = new DipoleModelParameters(TableGeneratorSettings::instance());
 }
 
-WaveOverlap::~WaveOverlap() {/* no op*/}  
+WaveOverlap::~WaveOverlap() {/* no op*/}
 
 //
 //  VECTOR MESONS
 //
 
 WaveOverlapVM::WaveOverlapVM()
-{  
+{
     mNT = mRT2 = 0;
     mMf = 0;
     mMf2 = 0;
@@ -89,6 +120,15 @@ void WaveOverlapVM::testBoostedGaussianParameters(int id) const
     //
     // KMW paper hep-ph/0606272 Eqs. (24)-(28)
     //
+    // Note: the r-integration of the normalisations below stops at 10 fm.
+    // This is exact for heavy quarks but cuts off a small part of the
+    // transverse normalisation for very light quarks (up to ~0.7%).
+    //
+    // Show the parameters and the two quark masses in use:
+    cout<<"Quark mass in eps^2 and explicit m_f^2 terms: "<<mMf<<" GeV, "
+    <<"in boosted Gaussian exponent: "<<mBoostedGaussianMf<<" GeV"<<endl;
+    cout<<"Boosted Gaussian parameters: R^2="<<mRL2<<" GeV^-2, N_T="<<mNT<<", N_L="<<mNL<<endl;
+    //
     // Start with decay width:
     TF1 fDW("fDW", this, &WaveOverlapVM::uiDecayWidth, 0., 1., 0.);
     ROOT::Math::WrappedTF1 wfDW(fDW);
@@ -110,7 +150,7 @@ void WaveOverlapVM::testBoostedGaussianParameters(int id) const
         cout<<"DPG val.  Gamma(rho->ee)=7.04 +- 0.06 keV"<<endl;
     else
         cout<<"No such vector meson!"<<endl;
-    
+
     //
     //   Normalisations
     //
@@ -123,7 +163,7 @@ void WaveOverlapVM::testBoostedGaussianParameters(int id) const
     double hi[2]={1, 10.};
     double N_L=imdL.Integral(lo, hi)/hbarc; //GeV0
     cout<<"Longitudinal normalisation is: "<<N_L<<endl;
-    
+
     ROOT::Math::Functor fNT(this, &WaveOverlapVM::uiNormT, 2);
     ROOT::Math::IntegratorMultiDim imdT(ROOT::Math::IntegrationMultiDim::kADAPTIVE);
     imdT.SetFunction(fNT);
@@ -138,7 +178,7 @@ double WaveOverlapVM::transverseWaveFunction(double r, double z) const
     // KMW paper hep-ph/0606272 Eq. 33
     return mNT*z*(1-z)*exp(-(mBoostedGaussianMf2*mRT2)/(8*z*(1-z)) -
                            (2*z*(1-z)*r*r)/mRT2/hbarc2 + (mBoostedGaussianMf2*mRT2)/2);
-}  
+}
 
 double WaveOverlapVM::dDrTransverseWaveFunction(double r, double z) const
 {
@@ -154,21 +194,21 @@ double WaveOverlapVM::T(double z, double Q2, double r) const
     const double e = sqrt(4*M_PI*alpha_em);
     double eps2 = z*(1-z)*Q2 + mMf2;
     double eps = sqrt(eps2);
-    
+
     double term0 = mEf*e*(Nc/(M_PI*z*(1-z)));
     double term1 = mMf2*TMath::BesselK0(r*eps/hbarc)*transverseWaveFunction(r,z);
     double term2 = (z*z + (1-z)*(1-z))*eps*TMath::BesselK1(r*eps/hbarc)*dDrTransverseWaveFunction(r,z);
     return term0*(term1-term2);
-}  
+}
 
 double WaveOverlapVM::L(double z, double Q2, double r) const
-{  
+{
     // KMW paper hep-ph/0606272 Eq. 22
     // Units:
     // Q2 in GeV^2
     // r in fm
     const double e = sqrt(4*M_PI*alpha_em);
-    
+
     double eps2 = z*(1-z)*Q2 + mMf2;
     double eps = sqrt(eps2);
     double result = mEf*e*(Nc/M_PI)*2*sqrt(Q2)*z*(1-z);
@@ -176,28 +216,32 @@ double WaveOverlapVM::L(double z, double Q2, double r) const
     double term1 = mMV*longitudinalWaveFunction(r,z);
     double term2 = mMf2*longitudinalWaveFunction(r,z) - laplaceRLongitudinalWaveFunction(r,z);
     term2 /= (mMV*z*(1-z));
-    
+
     return result*(term1+term2);
-}  
+}
 
 double WaveOverlapVM::longitudinalWaveFunction(double r, double z) const
-{  
+{
     // KMW paper hep-ph/0606272 Eq. 33
     return mNL*z*(1-z)*exp(-(mBoostedGaussianMf2*mRL2)/(8*z*(1-z)) -
                            (2*z*(1-z)*r*r)/mRL2/hbarc2 + (mBoostedGaussianMf2*mRL2)/2);
-}  
+}
 
 double WaveOverlapVM::laplaceRLongitudinalWaveFunction(double r, double z) const
-{  
+{
     double t = 4*z*(1-z)/mRL2; //GeV2
     return longitudinalWaveFunction(r,z)* (r*r*t*t/hbarc2 - 2*t); //GeV-2
-}  
+}
 
-void WaveOverlapVM::setWaveOverlapFunctionParameters(int val)  
-{  
+void WaveOverlapVM::setWaveOverlapFunctionParameters(int val)
+{
     // KMW paper hep-ph/0606272 Table II
     //
     // mRL2 (GeV^-2)
+    //
+    // All parameters, including the quark mass of the boosted Gaussian,
+    // come from DipoleModelParameters. For the STU set that mass is the
+    // dipole-fit mass (the same as mMf set in setProcess()).
     //
     mRL2 = mParameters->boostedGaussianR2(val);
     mRT2 = mRL2;
@@ -205,9 +249,10 @@ void WaveOverlapVM::setWaveOverlapFunctionParameters(int val)
     mNL = mParameters->boostedGaussianNL(val);
     mBoostedGaussianMf = mParameters->boostedGaussianQuarkMass(val);
     mBoostedGaussianMf2 = mBoostedGaussianMf*mBoostedGaussianMf;
+    checkSingleQuarkMass(mParameters->dipoleModelParameterSet(), mMf, mBoostedGaussianMf);
 }
 
-void WaveOverlapVM::setProcess(int val)  
+void WaveOverlapVM::setProcess(int val)
 {
     switch (val) {
         case 113:
@@ -235,14 +280,15 @@ void WaveOverlapVM::setProcess(int val)
             break;
     }
     mMf2 = mMf*mMf;
-}  
+    checkSingleQuarkMass(mParameters->dipoleModelParameterSet(), mMf, mBoostedGaussianMf);
+}
 
 //
 // DVCS
 //
 
 double WaveOverlapDVCS::T(double z, double Q2, double r) const
-{  
+{
     // KMW paper hep-ph/0606272 Eq. 17
     double term0, term1, term2;
     double result=0;
@@ -257,7 +303,7 @@ double WaveOverlapDVCS::T(double z, double Q2, double r) const
         result += term0*(term1+term2);
     }
     return result;
-}  
+}
 
-double WaveOverlapDVCS::L(double, double, double) const {return 0;}  
+double WaveOverlapDVCS::L(double, double, double) const {return 0;}
 
